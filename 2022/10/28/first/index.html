@@ -1,270 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>first | HIGH IN THE SKY</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="3-4-2 解题报告一、题目大意给定一个初始元素均为$0$的长度为$n$的区间，对区间进行$m$次以下操作：（1）修改：将某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的值增加$1$。（2）查询：查询某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的和。其中$1 \leq n &lt; 2^{31}$，$1 \leq m \le">
-<meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2022/10/28/first/index.html">
-<meta property="og:site_name" content="HIGH IN THE SKY">
-<meta property="og:description" content="3-4-2 解题报告一、题目大意给定一个初始元素均为$0$的长度为$n$的区间，对区间进行$m$次以下操作：（1）修改：将某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的值增加$1$。（2）查询：查询某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的和。其中$1 \leq n &lt; 2^{31}$，$1 \leq m \le">
-<meta property="og:locale">
-<meta property="article:published_time" content="2022-10-27T18:05:28.000Z">
-<meta property="article:modified_time" content="2022-10-27T18:09:46.167Z">
-<meta property="article:author" content="NAGISA">
-<meta property="article:tag" content="DSA解题报告">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="HIGH IN THE SKY" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">HIGH IN THE SKY</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">だんご大家族！</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-first" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/28/first/" class="article-date">
-  <time class="dt-published" datetime="2022-10-27T18:05:28.000Z" itemprop="datePublished">2022-10-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      first
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="3-4-2-解题报告"><a href="#3-4-2-解题报告" class="headerlink" title="3-4-2 解题报告"></a>3-4-2 解题报告</h1><h2 id="一、题目大意"><a href="#一、题目大意" class="headerlink" title="一、题目大意"></a>一、题目大意</h2><p>给定一个初始元素均为$0$的长度为$n$的区间，对区间进行$m$次以下操作：<br>（1）修改：将某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的值增加$1$。<br>（2）查询：查询某个子区间$[i,j](1 \leq i \leq j \leq n)$中所有元素的和。<br>其中$1 \leq n &lt; 2^{31}$，$1 \leq m \leq 200000$。</p>
-<h2 id="二、算法分析"><a href="#二、算法分析" class="headerlink" title="二、算法分析"></a>二、算法分析</h2><p>本题是一道经典的利用线段树解决的算法题，因为线段树可以高效地支持在线段上进行区间修改和区间查询的操作。</p>
-<p>若是采用数组模拟线段树的方法，考虑空间复杂度，最好的情况即是不断二分区间形成的线段树为完全二叉树，此时树中一共有$2n-1$个结点，需要的数组大小为$2n$；最坏的情况下，线段树的叶子结点一层中只有两个结点，但需要多进行一次二分开辟空间，需要的数组大小为$4n$。本题中，初始区间的长度$n$范围很大，使用数组模拟线段树会造成空间超限，因此采用动态加点的方法构造线段树，可以减少所需要使用的内存空间。</p>
-<h2 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h2><p>为了实现线段树，我定义了一个<code>SegTree</code>类，将线段树的建立以及修改、查询等功能函数进行封装。该<code>SegTree</code>类的<code>private</code>成员中定义了如下的结构体<code>Node</code>，用来定义线段树中的每个结点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span>&#123;</span><br><span class="line">	<span class="built_in">Node</span>() : <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>), <span class="built_in">sum</span>(<span class="number">0</span>), <span class="built_in">tag</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> sum;</span><br><span class="line">	<span class="type">long</span> tag;</span><br><span class="line">	Node *left;</span><br><span class="line">	Node *right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>sum</code>表示这个结点代表的区间的元素和，<code>tag</code>为记录区间修改信息的懒惰标记，<code>*left</code>与<code>*right</code>为结构体指针，分别代表该结点的左右子结点，构造函数<code>Node()</code>将结点初始化为空。</p>
-<p><code>public</code>成员中，首先新建了一个结点<code>root</code>，表示整棵线段树的根结点，接着定义了<code>SegTree</code>类的构造函数与析构函数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Node *root;</span><br><span class="line"><span class="built_in">SegTree</span>() &#123; root = <span class="keyword">new</span> <span class="built_in">Node</span>(); &#125;</span><br><span class="line">~<span class="built_in">SegTree</span>() &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来便是线段树功能函数的实现。首先，我们需要实现对当前结点<code>curNode</code>的更新功能，为此实现<code>pushUp</code>函数，传入当前结点代表的区间的长度<code>len</code>，结合当前结点的懒惰标记实现对区间元素和的修改。同时需要检查左右子结点是否为空，若不为空，则也要加上左右子结点对应的区间元素和。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushUp</span><span class="params">(Node *curNode, <span class="type">int</span> len)</span> </span>&#123;</span><br><span class="line">	curNode-&gt;sum = len * curNode -&gt; tag;</span><br><span class="line">	<span class="keyword">if</span>(curNode-&gt;left != <span class="literal">nullptr</span>)</span><br><span class="line">		curNode-&gt;sum += curNode-&gt;left-&gt;sum;</span><br><span class="line">	<span class="keyword">if</span>(curNode-&gt;right != <span class="literal">nullptr</span>)</span><br><span class="line">		curNode-&gt;sum += curNode-&gt;right-&gt;sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来实现线段树对区间的修改功能。为此我们定义<code>upDate</code>函数，传入当前区间的左右下标，需要修改的区间的左右下标，以及对区间元素的修改值。若当前结点为空，则新增结点。若当前区间被所需要修改的区间所完全覆盖，则直接进行和的修改以及懒惰标记的修改：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (upDateLeft &lt;= curLeft &amp;&amp; upDateRight &gt;= curRight) &#123;</span><br><span class="line">	curNode-&gt;sum += addVal * (curRight - curLeft + <span class="number">1</span>);</span><br><span class="line">	curNode-&gt;tag += addVal;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>否则二分当前区间，向两侧递归调用：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> mid = (curLeft + curRight) / <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (upDateLeft &lt;= mid) &#123;</span><br><span class="line">	<span class="built_in">upDate</span>(curNode-&gt;left, curLeft, mid, upDateLeft, upDateRight, addVal);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (upDateRight &gt; mid) &#123;</span><br><span class="line">	<span class="built_in">upDate</span>(curNode-&gt;right, mid + <span class="number">1</span>, curRight, upDateLeft, upDateRight, addVal);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>修改完成后，需要调用<code>pushUp</code>函数进行结点信息的更新。</p>
-<p>接下来实现线段树查询区间元素和的功能。为此我们定义<code>query</code>函数，传入当前区间的左右下标，需要查询的区间的左右下标。若当前结点为空，则返回$0$。若当前区间被所需要查询的区间完全覆盖，则直接返回对应的元素和：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (queryLeft &lt;= curLeft &amp;&amp; queryRight &gt;= curRight) &#123;</span><br><span class="line">	<span class="keyword">return</span> curNode-&gt;sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>否则，记录当前区间与需查询区间的交的长度，先更新这一部分区间对当前区间对应的元素和的贡献，之后二分区间，向两侧递归调用，最后返回当前区间和即可：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> curSum = curNode-&gt;tag*(<span class="built_in">min</span>(curRight,queryRight)-<span class="built_in">max</span>(curLeft,queryLeft)+<span class="number">1</span>);</span><br><span class="line"><span class="type">int</span> mid = (curLeft + curRight) / <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (queryLeft &lt;= mid) &#123;</span><br><span class="line">	curSum += <span class="built_in">query</span>(curNode-&gt;left, curLeft, mid, queryLeft, queryRight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (queryRight &gt; mid) &#123;</span><br><span class="line">	curSum += <span class="built_in">query</span>(curNode-&gt;right, mid + <span class="number">1</span>, curRight, queryLeft, queryRight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> curSum;</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、实现中值得注意的细节"><a href="#四、实现中值得注意的细节" class="headerlink" title="四、实现中值得注意的细节"></a>四、实现中值得注意的细节</h2><ol>
-<li>最终结果很大，需要用<code>long long</code>类型存储。</li>
-<li>一开始实现时，我还定义了一个<code>pushDown</code>下放函数，用于将当前结点的懒惰标记下放到子结点，以记录修改信息。在这一过程中，若是子结点为空，我进行了<code>new</code>操作，这一操作带来了许多不必要的空间开销，也即新建了很多没用到的空结点，造成Memory Limit Exceeded。于是采用懒惰标记永久化的办法，不需要定义下放函数，更新时遇到空结点，则新建；查询时对于空结点，则返回$0$，否则将懒惰标记记录的修改信息先行提取出来，也即代码中<code>int curSum = curNode-&gt;tag*(min(curRight,queryRight)-max(curLeft,queryLeft)+1);</code>这一行。这样大大减小了代码所需的空间开销。</li>
-</ol>
-<h2 id="五、时间与空间复杂度分析"><a href="#五、时间与空间复杂度分析" class="headerlink" title="五、时间与空间复杂度分析"></a>五、时间与空间复杂度分析</h2><ol>
-<li>时间复杂度分析：本题中，基于线段树的实现，对区间的修改和查询操作的时间复杂度均为$O(\log{n})$，则总时间复杂度为$O(m\log{n})$。</li>
-<li>空间复杂度分析：设$m$次操作中修改区间的操作次数为$T$，则每次修改操作所需要的空间复杂度均为$O(\log{n})$，则总空间复杂度为$O(T\log{n})$。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/28/first/" data-id="cl9rdrm6r00017cty0jgkgn5s" data-title="first" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" rel="tag">DSA解题报告</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2022/10/28/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
-  
-</article>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a></li></ul>
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+
+{% block page_class %}page-post-detail{% endblock %}
+
+
+{% block content %}
+
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
+
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
     </div>
   </div>
 
+{% endblock %}
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" rel="tag">DSA解题报告</a></li></ul>
-    </div>
-  </div>
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" style="font-size: 10px;">DSA解题报告</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/10/28/first/">first</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/28/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 NAGISA<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
