@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>PA3-6 Report | NAGISA's Blog</title><meta name="author" content="NAGISA"><meta name="copyright" content="NAGISA"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、题目大意本题中，给定$n$个$d$维向量$\mathbf{x}_1,\cdots,\mathbf{x}_n$，$q$次询问，每次寻味给出一个$d$维向量$\mathbf{x}$，求向量$\mathbf{x}$与给出的$n$个向量距离的平方的最小值。数据满足$2 \leq d \leq 5$，$1 \leq n \leq 10^5$，$1 \leq q \leq 2 \times 10^5$，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PA3-6 Report">
+<meta property="og:url" content="http://example.com/2023/01/26/PA3-6-Report/index.html">
+<meta property="og:site_name" content="NAGISA&#39;s Blog">
+<meta property="og:description" content="一、题目大意本题中，给定$n$个$d$维向量$\mathbf{x}_1,\cdots,\mathbf{x}_n$，$q$次询问，每次寻味给出一个$d$维向量$\mathbf{x}$，求向量$\mathbf{x}$与给出的$n$个向量距离的平方的最小值。数据满足$2 \leq d \leq 5$，$1 \leq n \leq 10^5$，$1 \leq q \leq 2 \times 10^5$，所">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/medias/dsa.png">
+<meta property="article:published_time" content="2023-01-26T04:45:02.000Z">
+<meta property="article:modified_time" content="2023-01-26T04:46:17.089Z">
+<meta property="article:author" content="NAGISA">
+<meta property="article:tag" content="DSA解题报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/medias/dsa.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/01/26/PA3-6-Report/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PA3-6 Report',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-26 12:46:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/medias/dsa.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NAGISA's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PA3-6 Report</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-26T04:45:02.000Z" title="Created 2023-01-26 12:45:02">2023-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-26T04:46:17.089Z" title="Updated 2023-01-26 12:46:17">2023-01-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PA3-6 Report"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、题目大意"><a href="#一、题目大意" class="headerlink" title="一、题目大意"></a>一、题目大意</h2><p>本题中，给定$n$个$d$维向量$\mathbf{x}_1,\cdots,\mathbf{x}_n$，$q$次询问，每次寻味给出一个$d$维向量$\mathbf{x}$，求向量$\mathbf{x}$与给出的$n$个向量距离的平方的最小值。<br>数据满足$2 \leq d \leq 5$，$1 \leq n \leq 10^5$，$1 \leq q \leq 2 \times 10^5$，所有向量每个分量的绝对值不超过$10^7$。<br><span id="more"></span></p>
+<h2 id="二、算法分析"><a href="#二、算法分析" class="headerlink" title="二、算法分析"></a>二、算法分析</h2><p>由题意可知，本题是一个高维的最近邻查询问题。为高效处理多维空间的数据信息，因此考虑采用kd树进行存储与查询。</p>
+<h2 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h2><p>为了实现kd树，首先我们定义一个结构体<code>Node</code>，含有成员数组<code>num</code>，并且定义一个<code>Node</code>类型的数组<code>point</code>用于存储给出的向量的信息。同时，定义数组<code>lc[N]</code>与<code>rc[N]</code>分别存储树中第$i$个结点的左儿子和右儿子的根节点编号。此外，对每个维度，我们需要维护在该维度上每个点对应的子树内最值，因此定义两个数组<code>max_number</code>和<code>min_number</code>进行存储。从而可得前期准备如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> lc[N],rc[N];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">	<span class="type">int</span> num[<span class="number">5</span>];</span><br><span class="line">&#125; point[N];<span class="comment">//存储给出的点</span></span><br><span class="line"><span class="type">int</span> max_number[<span class="number">5</span>][N], min_number[<span class="number">5</span>][N];<span class="comment">//维护各个维度上的最大值与最小值</span></span><br></pre></td></tr></table></figure><br>kd树建树的核心思想为，每次选择一个维度中的一个基准点之后按照这一维度上值的大小关系将这$n$个点构成的$k$维空间内的超长方体进行分割，之后向两侧的超长方体递归，从而可以建立kd树。为了尽量达到平均分割，我们选择所有点在这一维度上的分量值得中位数作为基准，因此我们需要获取$n$个值的中位数，也即将第$k$大的值置于序列第$k$位的<code>kth_element</code>算法。<br>由于本课程使用的OJ禁用了<code>algorithm</code>库中的<code>nth_element</code>函数，因此需要手动实现。参考快速排序算法的实现过程：每次选定一个基准值，确定该基准值在整个序列中的位置，之后向两侧递归排序。而在此处，我们只需要确定中位数的位置即可，因此我们在确定基准值的位置之后，只需根据大小关系向含有位置$k$的一侧递归。综上我们可以手动实现<code>kth_element</code>算法，实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kth_element_with_dim</span><span class="params">(<span class="type">int</span> k, <span class="type">int</span> left, <span class="type">int</span> right, <span class="type">int</span> kd)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(left &lt; right) &#123;</span><br><span class="line">        Node pmt = point[left];</span><br><span class="line">        <span class="type">int</span> i = left, j = right, temp = point[left].num[kd];</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; j &amp;&amp; point[j].num[kd] &gt;= temp) &#123;</span><br><span class="line">                j --;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">                point[i ++] = point[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; j &amp;&amp; point[i].num[kd] &lt; temp) &#123;</span><br><span class="line">                i ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">                point[j --] = point[i];</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        point[i] = pmt;</span><br><span class="line">        <span class="keyword">if</span>(i == k) <span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(i &gt; k) &#123;</span><br><span class="line">			<span class="built_in">kth_element_with_dim</span>(k, left, i - <span class="number">1</span>, kd);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">kth_element_with_dim</span>(k, i + <span class="number">1</span>, right, kd);</span><br><span class="line">		&#125;<span class="comment">//根据大小关系向含有k的一侧递归即可</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="comment">//实现了algorithm中的nth_element方法</span></span><br></pre></td></tr></table></figure><br>对于kd树中的每个结点，我们需要根据该结点的左右子树的信息来维护这个结点对应的超矩形的信息，也即<code>max_number</code>与<code>min_number</code>数组中的值。因此考虑定义如下的<code>maintain</code>函数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">maintain</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; dim; i ++) &#123;</span><br><span class="line">		max_number[i][x] = min_number[i][x] = point[x].num[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(lc[x]) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; dim; i ++) &#123;</span><br><span class="line">			max_number[i][x] = <span class="built_in">max</span>(max_number[i][x], max_number[i][lc[x]]);</span><br><span class="line">			min_number[i][x] = <span class="built_in">min</span>(min_number[i][x], min_number[i][lc[x]]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(rc[x]) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; dim; i ++) &#123;</span><br><span class="line">			max_number[i][x] = <span class="built_in">max</span>(max_number[i][x], max_number[i][rc[x]]);</span><br><span class="line">			min_number[i][x] = <span class="built_in">min</span>(min_number[i][x], min_number[i][rc[x]]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="comment">//维护x子树的矩形。</span></span><br></pre></td></tr></table></figure><br>在定义了以上的必需函数之后，可以进行建树。在建树时，每次递归建树需要根据不同的维度进行划分。因此考虑采用<code>kd % m</code>的方式，按照顺序依次采用各个维度进行划分即可。同时在建树过程中需要时刻维护结点对应的超矩形的信息。由上可得建树函数如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">build</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> kd)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l &gt; r) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(l == r) &#123;</span><br><span class="line">		<span class="built_in">maintain</span>(l);</span><br><span class="line">		<span class="keyword">return</span> l;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">kth_element_with_dim</span>(mid, l, r, kd % dim);</span><br><span class="line">	lc[mid] = <span class="built_in">build</span>(l, mid - <span class="number">1</span>, kd + <span class="number">1</span>);</span><br><span class="line">	rc[mid] = <span class="built_in">build</span>(mid + <span class="number">1</span>, r, kd + <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">maintain</span>(mid);</span><br><span class="line">	<span class="keyword">return</span> mid; </span><br><span class="line">&#125;<span class="comment">//建树</span></span><br></pre></td></tr></table></figure><br>建树完毕后需要实现查询功能。若是每次查询都暴力枚举树中的每一个节点，时间复杂度为$O(n)$，因此需要进行剪枝。我们首先可以维护每次需要查询的向量到序号为$x$的结点对应的超矩形的距离：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">distance_to_square</span><span class="params">(<span class="type">int</span> x, Node y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="number">0</span>) <span class="keyword">return</span> INF;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; dim; i ++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(max_number[i][x] &lt; y.num[i]) &#123;</span><br><span class="line">			res += <span class="number">1ll</span> * (y.num[i] - max_number[i][x]) * (y.num[i] - max_number[i][x]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(min_number[i][x] &gt; y.num[i]) &#123;</span><br><span class="line">			res += <span class="number">1ll</span> * (min_number[i][x] - y.num[i]) * (min_number[i][x] - y.num[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;<span class="comment">//获取给定点y到结点x对应矩形的距离</span></span><br></pre></td></tr></table></figure><br>之后在查询时，首先对$x$结点和目标向量之间的距离与答案的全局变量取最小值，之后比较目标向量与$x$结点左右儿子对应超矩形之间的距离，再根据大小关系依次向两侧递归即可。实现代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x, Node tar)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">	ans = <span class="built_in">min</span>(ans, <span class="built_in">distance</span>(x, tar));</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> dis1 = <span class="built_in">distance_to_square</span>(lc[x], tar);</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> dis2 = <span class="built_in">distance_to_square</span>(rc[x], tar);</span><br><span class="line">	<span class="keyword">if</span>(dis1 &lt; dis2) &#123;</span><br><span class="line">		<span class="keyword">if</span>(dis1 &lt; ans) &#123;</span><br><span class="line">			<span class="built_in">query</span>(lc[x], tar);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(dis2 &lt; ans) &#123;</span><br><span class="line">			<span class="built_in">query</span>(rc[x], tar);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(dis2 &lt; ans) &#123;</span><br><span class="line">			<span class="built_in">query</span>(rc[x], tar);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(dis1 &lt; ans) &#123;</span><br><span class="line">			<span class="built_in">query</span>(lc[x], tar);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="comment">//查询距离</span></span><br></pre></td></tr></table></figure><br>在最终实现时，我们通过<code>build(1, n, 0)</code>建立kd树并获取整棵树的根节点<code>root</code>，最后每次查询时，先将全局变量<code>ans</code>设置为给定的上界<code>INF = 1ll &lt;&lt; 62</code>，之后通过<code>query(root, temp)</code>即可（<code>temp</code>为每次查询给出的向量）。</p>
+<h2 id="四、实现中值得注意的细节"><a href="#四、实现中值得注意的细节" class="headerlink" title="四、实现中值得注意的细节"></a>四、实现中值得注意的细节</h2><ol>
+<li>根据本题的数据范围，最终的结果（距离的平方）可能超过<code>int</code>数据范围，因此相关变量以及函数返回值需要使用<code>long long</code>数据类型进行存储。</li>
+<li>在输入给定的<code>n</code>个向量时，可以令数组下标从$1$开始进行存储，这样子可以在<code>point</code>数组中预留出首位用于处理特殊情况。例如上述的<code>query</code>函数中<code>if(x == 0) return;</code>一行就是利用的这一便利。</li>
+</ol>
+<h2 id="五、时间与空间复杂度分析"><a href="#五、时间与空间复杂度分析" class="headerlink" title="五、时间与空间复杂度分析"></a>五、时间与空间复杂度分析</h2><ol>
+<li>在本题中，主要的空间使用是用于存储给出的$n$个$d$维向量的每一维的数据信息，则空间复杂度为$O(dn)$。</li>
+<li>在本题中，实现<code>kth_element</code>算法的时间复杂度为$O(n)$，建树时每次根据中位数划分，则建立kd树的时间复杂度为$O(n\log{n})$。每次查询的时间复杂度为$O(\log{n})$，则总时间复杂度为$O((n+q)\log{n})$。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">NAGISA</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/01/26/PA3-6-Report/">http://example.com/2023/01/26/PA3-6-Report/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">DSA解题报告</a></div><div class="post_share"><div class="social-share" data-image="/medias/dsa.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/26/Lab2-Report/"><img class="prev-cover" src="/medias/dsa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Lab2 Report</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/26/PA3-2-Report/"><img class="next-cover" src="/medias/dsa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">PA3-2 Report</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/20/PA1-2-Report/" title="PA1-2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-2 Report</div></div></a></div><div><a href="/2023/01/26/Lab1-Report/" title="Lab1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab1 Report</div></div></a></div><div><a href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab2 Report</div></div></a></div><div><a href="/2023/01/20/PA1-1-Report/" title="PA1-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-1 Report</div></div></a></div><div><a href="/2023/01/26/Lab3-Report/" title="Lab3 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab3 Report</div></div></a></div><div><a href="/2023/01/26/PA2-1-Report/" title="PA2-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">PA2-1 Report</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NAGISA</div><div class="author-info__description">cmh的个人网页</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">一、题目大意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">二、算法分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">三、代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E7%8E%B0%E4%B8%AD%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-number">4.</span> <span class="toc-text">四、实现中值得注意的细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%97%B6%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">五、时间与空间复杂度分析</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab3-Report/" title="Lab3 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab3 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab3-Report/" title="Lab3 Report">Lab3 Report</a><time datetime="2023-01-26T04:49:00.000Z" title="Created 2023-01-26 12:49:00">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab2-Report/" title="Lab2 Report">Lab2 Report</a><time datetime="2023-01-26T04:46:48.000Z" title="Created 2023-01-26 12:46:48">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-6 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report">PA3-6 Report</a><time datetime="2023-01-26T04:45:02.000Z" title="Created 2023-01-26 12:45:02">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report">PA3-2 Report</a><time datetime="2023-01-26T04:44:16.000Z" title="Created 2023-01-26 12:44:16">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab1-Report/" title="Lab1 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab1 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab1-Report/" title="Lab1 Report">Lab1 Report</a><time datetime="2023-01-26T04:42:00.000Z" title="Created 2023-01-26 12:42:00">2023-01-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By NAGISA</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

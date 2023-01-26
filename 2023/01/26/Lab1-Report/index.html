@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Lab1 Report | NAGISA's Blog</title><meta name="author" content="NAGISA"><meta name="copyright" content="NAGISA"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本Lab要求针对一道PA题给出的十份错误代码，分析出错原因以及可能发生的最严重错误，并给出一个能够造成最严重错误的测例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab1 Report">
+<meta property="og:url" content="http://example.com/2023/01/26/Lab1-Report/index.html">
+<meta property="og:site_name" content="NAGISA&#39;s Blog">
+<meta property="og:description" content="本Lab要求针对一道PA题给出的十份错误代码，分析出错原因以及可能发生的最严重错误，并给出一个能够造成最严重错误的测例。">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/medias/dsa.png">
+<meta property="article:published_time" content="2023-01-26T04:42:00.000Z">
+<meta property="article:modified_time" content="2023-01-26T04:43:16.545Z">
+<meta property="article:author" content="NAGISA">
+<meta property="article:tag" content="DSA解题报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/medias/dsa.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/01/26/Lab1-Report/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lab1 Report',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-26 12:43:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/medias/dsa.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NAGISA's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Lab1 Report</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-26T04:42:00.000Z" title="Created 2023-01-26 12:42:00">2023-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-26T04:43:16.545Z" title="Updated 2023-01-26 12:43:16">2023-01-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lab1 Report"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本Lab要求针对一道PA题给出的十份错误代码，分析出错原因以及可能发生的最严重错误，并给出一个能够造成最严重错误的测例。</p>
+<span id="more"></span>
+<h2 id="code-1"><a href="#code-1" class="headerlink" title="code 1"></a>code 1</h2><ol>
+<li>最严重错误类型：Runtime Error</li>
+<li>产生错误原因：在<code>play()</code>函数中，由于游戏可能消除到rank=0的位置，此时会递归调用<code>play(-1)</code>，从而出现越界访问<code>a(-1)</code>的情况，造成Runtime Error。</li>
+<li>测例构造：构造一个会向前消除到rank=0位置的测例即可触发此错误。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AAB</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span> A</span><br></pre></td></tr></table></figure>
+<h2 id="code-2"><a href="#code-2" class="headerlink" title="code 2"></a>code 2</h2></li>
+<li>最严重错误类型：Runtime Error</li>
+<li>产生错误原因：在<code>play()</code>函数中，若游戏消除到rank=0位置，则会递归调用<code>play(0)</code>，但若此时字符串被消除至空串，则会出现越界访问<code>a(0)</code>的情况，造成Runtime Error。</li>
+<li>测例构造：构造一个会消除至空串的测例即可触发此错误。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AA</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span> A</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-3"><a href="#code-3" class="headerlink" title="code 3"></a>code 3</h2><ol>
+<li>最严重错误类型：Time Limit Exceeded</li>
+<li>产生错误原因：在插入字符的时候，没有采用<code>memmove()</code>函数移动字符串元素，而是采用了效率较低的<code>insert()</code>方法，当测例字符串长度很长、操作数量很多时，程序会运行超时。</li>
+<li>测例构造：构造长度接近数据范围上界的初始字符串，例如可以将字符串<code>&quot;ABCDE&quot;</code>重复十万次，随后构造五十万次插入操作，可以简单地从开头依次插入<code>&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;</code>，重复十万次。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">ABCDEABCDE...ABCDE <span class="comment">//长度为500000</span></span><br><span class="line"><span class="number">499999</span></span><br><span class="line"><span class="number">0</span> A</span><br><span class="line"><span class="number">1</span> B</span><br><span class="line"><span class="number">2</span> C</span><br><span class="line"><span class="number">3</span> D</span><br><span class="line"><span class="number">4</span> E</span><br><span class="line"><span class="number">5</span> A</span><br><span class="line"><span class="number">6</span> B</span><br><span class="line"><span class="number">7</span> C</span><br><span class="line"><span class="number">8</span> D</span><br><span class="line"><span class="number">9</span> E</span><br><span class="line">...</span><br><span class="line"><span class="number">499990</span> A</span><br><span class="line"><span class="number">499991</span> B</span><br><span class="line"><span class="number">499992</span> C</span><br><span class="line"><span class="number">499993</span> D</span><br><span class="line"><span class="number">499994</span> E</span><br><span class="line"><span class="number">499995</span> A</span><br><span class="line"><span class="number">499996</span> B</span><br><span class="line"><span class="number">499997</span> C</span><br><span class="line"><span class="number">499998</span> D</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-4"><a href="#code-4" class="headerlink" title="code 4"></a>code 4</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：在<code>play()</code>函数中，<code>left</code>的起始位置为rank，判断能否消除是根据<code>right - left &gt;= 3</code>来判断，则应在<code>while (left &gt; 0 &amp;&amp; a.at(left) == color) --left;</code>语句后增加一句<code>left += 1;</code>来确保检查完毕后left在正确的可消除区域的左端点，而本程序中没有这一句，则会导致错误的区域消除，从而造成Wrong Answer。</li>
+<li>测例构造：构造测例使得插入的字符恰好与该位置右侧的字符相同，则会导致错误的消除。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ABC</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span> B</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：初始字符串可能是空字符串，但是本程序中采用<code>cin</code>来读取字符串，无法读取空串，从而造成后续操作全部错误，从而造成Wrong Answer。</li>
+<li>测例构造：输入的初始字符串为空字符串即可。例如：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span> A</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-6"><a href="#code-6" class="headerlink" title="code 6"></a>code 6</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：本程序中用二维数组的形式对出事的字符串进行分块存储，但是没有考虑到后续操作过程中，某一块长度过长，超出设定的最大长度的情况，此时这一块字符串会往后溢出，覆盖后面分块中的内容，从而导致字符串操作不正常，最终造成Wrong Answer。</li>
+<li>测例构造：构造一个测例，在初始字符串中同一位置（例如0号位置）不断插入字符至超出每一块的长度限制，随后向得到的字符串中随机位置进行多次操作，就会造成Wrong Answer。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">ABCDEFGABCDEFG...ABCDEFG</span><br><span class="line"><span class="number">30000</span></span><br><span class="line"><span class="number">0</span> A</span><br><span class="line"><span class="number">0</span> B</span><br><span class="line"><span class="number">0</span> C</span><br><span class="line"><span class="number">0</span> D</span><br><span class="line"><span class="number">0</span> E</span><br><span class="line"><span class="number">0</span> F</span><br><span class="line"><span class="number">0</span> G</span><br><span class="line"><span class="number">0</span> H</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> A</span><br><span class="line"><span class="number">0</span> B</span><br><span class="line"><span class="number">0</span> C</span><br><span class="line"><span class="number">0</span> D</span><br><span class="line"><span class="number">0</span> E</span><br><span class="line"><span class="number">0</span> F</span><br><span class="line"><span class="number">0</span> G</span><br><span class="line"><span class="number">0</span> H <span class="comment">//此处为两万次操作</span></span><br><span class="line"><span class="comment">//以下均为随机位置，随机插入字符，共一万次</span></span><br><span class="line"><span class="number">629</span> A</span><br><span class="line"><span class="number">777</span> F</span><br><span class="line"><span class="number">903</span> B</span><br><span class="line"><span class="number">503</span> F</span><br><span class="line"><span class="number">759</span> D</span><br><span class="line"><span class="number">699</span> F</span><br><span class="line"><span class="number">987</span> B</span><br><span class="line">...</span><br><span class="line"><span class="number">877</span> A</span><br><span class="line"><span class="number">449</span> D</span><br><span class="line"><span class="number">955</span> A</span><br><span class="line"><span class="number">651</span> D</span><br><span class="line"><span class="number">950</span> C</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-7"><a href="#code-7" class="headerlink" title="code 7"></a>code 7</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：在消除的时候可能会出现中间某一块长度为0的情况，设这一块为第$i$块，此时若第$i-1$块的末尾与第$i+1$块的开头可以进行消除，但执行消除过程的时候左端点一次只能移动一块，这会导致<code>l.second &lt; 0</code>，从而导致无法执行这样的消除操作。</li>
+<li>测例构造：构造测例使得中间某块可以被消除至长度为0，且前后可以形成可消除块即可。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ABCDEFGHABCDEFGH...ABCDEFGABBCC...BBCCAZ</span><br><span class="line"><span class="comment">//上述字符串长度为4098，第2048个字符为A，从第2049个字符开始，重复输入BBCC，第4097个字符为A，第4098个字符为任意，此处为Z</span></span><br><span class="line"><span class="number">1025</span></span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C</span><br><span class="line">...</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C<span class="comment">//此处为1024次操作</span></span><br><span class="line"><span class="number">2048</span> A</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-8"><a href="#code-8" class="headerlink" title="code 8"></a>code 8</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：本程序中，在计算需要消除的区域时，缺少了<code>while(1)</code>的控制，只会进行一次计算，无法做到连续消除。</li>
+<li>测例构造：构造可以连续消除的测例即可。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AABBA</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span> B</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-9"><a href="#code-9" class="headerlink" title="code 9"></a>code 9</h2><ol>
+<li>最严重错误类型：Runtime Error</li>
+<li>产生错误原因：没有考虑到在同一块字符内出现消除的情况，此时会导致<code>len &lt; 0</code>，而数组<code>plen</code>中存储的数据类型为<code>unsigned long long</code>，此时会导致某一块长度超过最大长度，从而导致溢出，造成Runtime Error。</li>
+<li>测例构造：构造在某一块内产生消除的情况即可，例如在第一块消除，测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ABBC</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span> B</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="code-10"><a href="#code-10" class="headerlink" title="code 10"></a>code 10</h2><ol>
+<li>最严重错误类型：Wrong Answer</li>
+<li>产生错误原因：在<code>for (int i = l.first; i &lt; r.first; i++)</code>这一行中，会导致消除后left标志所在的块的长度也被修改为0，导致之后的修改操作无法正确执行，从而导致Wrong Answer。</li>
+<li>测例构造：构造一个测例，第$i$块全部消除至长度为0，第$i-1$块发生消除但不会消除至长度为0，第$i-1$块的末尾和第$i+1$块的开头可以组成另一次消除。这样的测例会造成Wrong Answer。测例如下：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HGFEDCBAHGFEDCBA...HGFEDCBABBCC...BBCCAZ</span><br><span class="line"><span class="comment">//上述字符串长度为4098，从第2049个字符开始，重复输入BBCC，第4097个字符为A，第4098个字符为Z</span></span><br><span class="line"><span class="number">1027</span></span><br><span class="line"><span class="number">1</span> G</span><br><span class="line"><span class="number">1</span> G</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C</span><br><span class="line">...</span><br><span class="line"><span class="number">2048</span> B</span><br><span class="line"><span class="number">2048</span> C<span class="comment">//此处为第1026次操作</span></span><br><span class="line"><span class="number">2048</span> A</span><br></pre></td></tr></table></figure></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">NAGISA</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/01/26/Lab1-Report/">http://example.com/2023/01/26/Lab1-Report/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">DSA解题报告</a></div><div class="post_share"><div class="social-share" data-image="/medias/dsa.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/26/PA3-2-Report/"><img class="prev-cover" src="/medias/dsa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">PA3-2 Report</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/26/PA2-2-Report/"><img class="next-cover" src="/medias/dsa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">PA2-2 Report</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/20/PA1-2-Report/" title="PA1-2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-2 Report</div></div></a></div><div><a href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab2 Report</div></div></a></div><div><a href="/2023/01/20/PA1-1-Report/" title="PA1-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-1 Report</div></div></a></div><div><a href="/2023/01/26/Lab3-Report/" title="Lab3 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab3 Report</div></div></a></div><div><a href="/2023/01/26/PA2-1-Report/" title="PA2-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">PA2-1 Report</div></div></a></div><div><a href="/2023/01/26/PA2-2-Report/" title="PA2-2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">PA2-2 Report</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NAGISA</div><div class="author-info__description">cmh的个人网页</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#code-1"><span class="toc-number">1.</span> <span class="toc-text">code 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-2"><span class="toc-number">2.</span> <span class="toc-text">code 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-3"><span class="toc-number">3.</span> <span class="toc-text">code 3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-4"><span class="toc-number">4.</span> <span class="toc-text">code 4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-5"><span class="toc-number">5.</span> <span class="toc-text">code 5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-6"><span class="toc-number">6.</span> <span class="toc-text">code 6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-7"><span class="toc-number">7.</span> <span class="toc-text">code 7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-8"><span class="toc-number">8.</span> <span class="toc-text">code 8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-9"><span class="toc-number">9.</span> <span class="toc-text">code 9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-10"><span class="toc-number">10.</span> <span class="toc-text">code 10</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab3-Report/" title="Lab3 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab3 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab3-Report/" title="Lab3 Report">Lab3 Report</a><time datetime="2023-01-26T04:49:00.000Z" title="Created 2023-01-26 12:49:00">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab2-Report/" title="Lab2 Report">Lab2 Report</a><time datetime="2023-01-26T04:46:48.000Z" title="Created 2023-01-26 12:46:48">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-6 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report">PA3-6 Report</a><time datetime="2023-01-26T04:45:02.000Z" title="Created 2023-01-26 12:45:02">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report">PA3-2 Report</a><time datetime="2023-01-26T04:44:16.000Z" title="Created 2023-01-26 12:44:16">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab1-Report/" title="Lab1 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab1 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab1-Report/" title="Lab1 Report">Lab1 Report</a><time datetime="2023-01-26T04:42:00.000Z" title="Created 2023-01-26 12:42:00">2023-01-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By NAGISA</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

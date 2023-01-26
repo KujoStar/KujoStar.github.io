@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Lab3 Report | NAGISA's Blog</title><meta name="author" content="NAGISA"><meta name="copyright" content="NAGISA"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在本次lab中，需要实现两种平衡树的数据结构，实现插入元素、删除元素、查找元素、查找某个数的前驱与后继的操作，并分析两种平衡树的性能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab3 Report">
+<meta property="og:url" content="http://example.com/2023/01/26/Lab3-Report/index.html">
+<meta property="og:site_name" content="NAGISA&#39;s Blog">
+<meta property="og:description" content="在本次lab中，需要实现两种平衡树的数据结构，实现插入元素、删除元素、查找元素、查找某个数的前驱与后继的操作，并分析两种平衡树的性能。">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/medias/dsa.png">
+<meta property="article:published_time" content="2023-01-26T04:49:00.000Z">
+<meta property="article:modified_time" content="2023-01-26T05:18:27.608Z">
+<meta property="article:author" content="NAGISA">
+<meta property="article:tag" content="DSA解题报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/medias/dsa.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/01/26/Lab3-Report/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Lab3 Report',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-26 13:18:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/medias/dsa.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NAGISA's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Lab3 Report</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-26T04:49:00.000Z" title="Created 2023-01-26 12:49:00">2023-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-26T05:18:27.608Z" title="Updated 2023-01-26 13:18:27">2023-01-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/">学习历程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Lab3 Report"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在本次lab中，需要实现两种平衡树的数据结构，实现插入元素、删除元素、查找元素、查找某个数的前驱与后继的操作，并分析两种平衡树的性能。<br><span id="more"></span></p>
+<h3 id="一、数据结构的实现过程"><a href="#一、数据结构的实现过程" class="headerlink" title="一、数据结构的实现过程"></a>一、数据结构的实现过程</h3><p>在本次lab中，我选择了AVL树与splay树两种数据结构进行了实现。</p>
+<h4 id="1-AVL树的实现"><a href="#1-AVL树的实现" class="headerlink" title="1. AVL树的实现"></a>1. AVL树的实现</h4><p>AVL树的平衡条件为：每个结点的左右子树的高度之差的绝对值不超过$1$。这个值被称为平衡因子。事实上，在进行结点的插入与删除时，都有可能破坏AVL树的平衡状态。因此，AVL树实现中的核心目标就是在操作的同时执行对平衡状态的维护。<br>首先，我们定义存储数据的结构体<code>AVL_node</code>和基本的辅助函数。<code>update</code>函数用于更新结点的高度，定义为两子树高的最大值加一。<code>get_balance</code>函数用于获取当前结点的平衡因子。考虑到对称性，此处直接获取左子树的高与右子树的高之差。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">AVL_node</span> &#123;</span><br><span class="line">    <span class="type">int</span> ch[<span class="number">2</span>], val, height;<span class="comment">//左右儿子，结点值，高度</span></span><br><span class="line">&#125; t[N];</span><br><span class="line"><span class="type">int</span> total;<span class="comment">//结点总数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> &amp;u)</span> </span>&#123;</span><br><span class="line">    t[u].height = <span class="built_in">max</span>(t[t[u].ch[<span class="number">0</span>]].height, t[t[u].ch[<span class="number">1</span>]].height) + <span class="number">1</span>;</span><br><span class="line">&#125;<span class="comment">//更新结点的高度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_balance</span><span class="params">(<span class="type">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t[t[u].ch[<span class="number">0</span>]].height - t[t[u].ch[<span class="number">1</span>]].height;</span><br><span class="line">&#125;<span class="comment">//获取平衡因子</span></span><br></pre></td></tr></table></figure><br>接下来实现AVL维护平衡的核心操作——左旋和右旋操作。这两个操作是完全对称的，因此以右旋为例进行说明。<br>对于某个不平衡的结点<code>u</code>，若其左子树高与右子树高的差大于$1$（事实上，由于我们在插入和删除结点时只对一个结点进行操作，对树高的影响不超过$1$，因此这个差值最多为$2$），则需要进行右旋来保持平衡。将其左儿子的右儿子变为自己的左儿子，其自身变为其左儿子的右儿子，之后更新对应结点，这样就实现了重新平衡。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">right_rotate</span><span class="params">(<span class="type">int</span> &amp;u)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> p = t[u].ch[<span class="number">0</span>];</span><br><span class="line">    t[u].ch[<span class="number">0</span>] = t[p].ch[<span class="number">1</span>];</span><br><span class="line">    t[p].ch[<span class="number">1</span>] = u;</span><br><span class="line">    <span class="built_in">update</span>(u);</span><br><span class="line">    <span class="built_in">update</span>(p);</span><br><span class="line">    u = p;</span><br><span class="line">&#125;<span class="comment">//右旋，左旋函数的实现完全对称</span></span><br></pre></td></tr></table></figure><br>现在我们就可以进行AVL树的插入、删除与查找了。</p>
+<p>定义插入函数<code>insert(int &amp;u, int x)</code>，插入结点时，我们从根开始根据数据的大小向两侧递归。若遇到不存在的结点，则在此处新建即可：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!u) &#123;</span><br><span class="line">    u = ++total;</span><br><span class="line">    t[u].val = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>若插入的值比当前结点的值小，则根据二叉搜索树的性质应插入左子树，往左子树递归调用<code>insert(t[u].ch[0], x)</code>即可。注意此时我们要对平衡性进行检查与维护。若当前结点<code>u</code>的平衡因子为$2$，则说明需要进行旋转来保持平衡。若<code>u</code>的左儿子的平衡因子为$1$，则对<code>u</code>进行一次右旋操作即可；否则需要先对左儿子进行一次左旋操作，再对<code>u</code>进行一次右旋操作。这样可以起到维护平衡的作用。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(x &lt; t[u].val) &#123;</span><br><span class="line">    <span class="built_in">insert</span>(t[u].ch[<span class="number">0</span>], x);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">get_balance</span>(u) == <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">get_balance</span>(t[u].ch[<span class="number">0</span>]) == <span class="number">1</span>) <span class="built_in">right_rotate</span>(u);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">left_rotate</span>(t[u].ch[<span class="number">0</span>]), <span class="built_in">right_rotate</span>(u); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>若插入的值比当前结点的值大，则往右子树递归调用<code>insert(t[u].ch[1], x)</code>即可。之后维护平衡的操作与上一情况完全对称，此处则不再赘述。在平衡维护完毕后，需要在<code>u</code>结点处进行一次更新。</p>
+<p>接下来定义删除函数<code>del(int &amp;u, int x)</code>，删除结点时也是从根开始根据数据的大小向两侧递归。当前结点不存在，则直接返回；若需要删除的值小于当前结点值，则往左子树递归调用<code>del(t[u].ch[0], x)</code>；若需要删除的值大于当前结点值，则往右子树递归调用<code>del(t[u].ch[1], x)</code>。<br>若当前结点就是需要删除的结点，此时继续分类讨论。若该结点为叶子结点，则直接令<code>u=0</code>删除即可。若某方向的子结点不存在，则用另一方向的子结点代替其本身即可。若两侧子结点均存在，则应找到当前结点的前驱结点，用前驱的值更新当前结点值，之后在左子树递归调用即可。实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!t[u].ch[<span class="number">0</span>] &amp;&amp; !t[u].ch[<span class="number">1</span>]) u = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(!t[u].ch[<span class="number">0</span>]) u = t[u].ch[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(!t[u].ch[<span class="number">1</span>]) u = t[u].ch[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="type">int</span> p = t[u].ch[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">while</span>(t[p].ch[<span class="number">1</span>]) p = t[p].ch[<span class="number">1</span>];</span><br><span class="line">    t[u].val = t[p].val;</span><br><span class="line">    <span class="built_in">del</span>(t[u].ch[<span class="number">0</span>], t[p].val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>删除结点之后，同样需要进行平衡维护。若当前结点的平衡因子为$2$，且左儿子的平衡因子为$-1$，则此时需要先对左儿子进行一次左旋操作，再对<code>u</code>进行一次右旋操作；否则直接对<code>u</code>进行右旋操作即可。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">get_balance</span>(u) == <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">get_balance</span>(t[u].ch[<span class="number">0</span>]) == <span class="number">-1</span>) <span class="built_in">left_rotate</span>(t[u].ch[<span class="number">0</span>]), <span class="built_in">right_rotate</span>(u);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">right_rotate</span>(u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>另外仍有一种完全对称的情况，也即当前结点的平衡因子为$-2$，所进行的旋转操作与判定条件同样完全对称，此处不再赘述。在平衡维护完毕后，需要在<code>u</code>结点处进行一次更新。</p>
+<p>之后的查询前驱和后继的操作则更为简单。以查询前驱为例（查询后继操作也是完全对称的），从根结点开始递归，最终若无法查询则返回一个设定的最小值；若查询的值比当前结点值小，则向左子树递归；否则向右子树递归，最终的答案与当前结点值取<code>max</code>。实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pre</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!u) <span class="keyword">return</span> <span class="number">-1e8</span>;</span><br><span class="line">    <span class="keyword">if</span>(t[u].val &gt;= x) <span class="keyword">return</span> <span class="built_in">pre</span>(t[u].ch[<span class="number">0</span>], x);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(t[u].val, <span class="built_in">pre</span>(t[u].ch[<span class="number">1</span>], x));</span><br><span class="line">&#125;<span class="comment">//寻找前驱，后继完全对称</span></span><br></pre></td></tr></table></figure><br>综上，我们实现了一棵AVL树。</p>
+<h4 id="2-splay树的实现"><a href="#2-splay树的实现" class="headerlink" title="2. splay树的实现"></a>2. splay树的实现</h4><p>splay树通过将结点旋转到根结点的方式来保持平衡。首先定义存储数据的结构体<code>splay_node</code>和基础的辅助函数<code>update</code>，用于更新当前结点的大小：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">splay_node</span> &#123;</span><br><span class="line">    <span class="type">int</span> father, cnt, ch[<span class="number">2</span>], val, size;</span><br><span class="line">    <span class="comment">//父亲，重复次数，左右儿子，结点值，结点规模</span></span><br><span class="line">&#125; t[N];</span><br><span class="line"><span class="type">int</span> root;<span class="comment">//根结点</span></span><br><span class="line"><span class="type">int</span> total;<span class="comment">//结点总数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    t[x].size = t[t[x].ch[<span class="number">0</span>]].size + t[t[x].ch[<span class="number">1</span>]].size + t[x].cnt;<span class="comment">//左子树+右子树+自身的重复个数</span></span><br><span class="line">&#125;<span class="comment">//更新</span></span><br></pre></td></tr></table></figure><br>splay树的操作基础为旋转函数<code>rotate</code>。对于结点<code>x</code>，获取其父亲<code>y</code>和祖父<code>z</code>，以及<code>x</code>相对<code>y</code>的位置<code>z</code>（0表示左儿子，1表示右儿子），将<code>z</code>的原来<code>y</code>所在的位置变为<code>x</code>，将<code>x</code>的<code>z ^ 1</code>这一侧的儿子变为<code>y</code>的<code>z</code>侧儿子，之后对父子连接关系一一更新，最后用<code>update</code>函数上传修改即可。具体实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">rotate</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> y = t[x].father, z = t[y].father;</span><br><span class="line">    <span class="type">int</span> k = (x == t[y].ch[<span class="number">1</span>]);<span class="comment">//0表示左儿子，1表示右儿子</span></span><br><span class="line">    <span class="keyword">if</span>(z) t[z].ch[y == t[z].ch[<span class="number">1</span>]] = x;</span><br><span class="line">    t[x].father = z, t[y].ch[k] = t[x].ch[k ^ <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(t[x].ch[k ^ <span class="number">1</span>]) t[t[x].ch[k ^ <span class="number">1</span>]].father = y;</span><br><span class="line">    t[x].ch[k ^ <span class="number">1</span>] = y, t[y].father = x;</span><br><span class="line">    <span class="built_in">update</span>(y), <span class="built_in">update</span>(x);<span class="comment">//更新修改</span></span><br><span class="line">&#125;<span class="comment">//旋转</span></span><br></pre></td></tr></table></figure><br>有了旋转操作之后，我们就可以进一步进行核心的伸展操作<code>splay</code>。这一操作主要是用于解决三点共线——<code>x</code>相对于父亲<code>y</code>的位置以及<code>y</code>相对于祖父<code>z</code>的位置均相同的情况。若出现了上述情况，则先对<code>y</code>进行旋转，之后再旋转<code>x</code>；否则直接对<code>x</code>进行旋转即可。实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">splay</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> target)</span> </span>&#123;<span class="comment">//将x旋转为target的儿子，target=0表示旋转到根</span></span><br><span class="line">    <span class="keyword">while</span>(t[x].father != target) &#123;</span><br><span class="line">        <span class="type">int</span> y = t[x].father;</span><br><span class="line">        <span class="type">int</span> z = t[y].father;</span><br><span class="line">        <span class="keyword">if</span>(z != target) (t[z].ch[<span class="number">0</span>] == y) ^ (t[y].ch[<span class="number">0</span>] == x) ? <span class="built_in">rotate</span>(x) : <span class="built_in">rotate</span>(y);<span class="comment">//根据是否共线来进行旋转</span></span><br><span class="line">        <span class="built_in">rotate</span>(x);<span class="comment">//最后一定要旋转x</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(target == <span class="number">0</span>) root = x;</span><br><span class="line">&#125;<span class="comment">//伸展</span></span><br></pre></td></tr></table></figure><br>有了<code>splay</code>操作，我们就可以进行splay树的结点插入。从根结点开始，若当前结点存在且并没有移动到要插入的值，则根据大小关系向对应位置的子树找：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(u &amp;&amp; t[u].val != x) &#123;</span><br><span class="line">    fa = u;</span><br><span class="line">    u = t[u].ch[x &gt; t[u].val];<span class="comment">//向对应位置的子树找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>若存在这个值，则出现次数加一；若不存在，则新建一个节点，并且初始化对应的结点信息。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(u) t[u].cnt++;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    u = ++total;</span><br><span class="line">    <span class="keyword">if</span>(fa) t[fa].ch[x &gt; t[fa].val] = u;</span><br><span class="line">    t[u].ch[<span class="number">0</span>] = t[u].ch[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    t[total].father = fa, t[total].val = x;</span><br><span class="line">    t[total].cnt = <span class="number">1</span>, t[total].size = <span class="number">1</span>;</span><br><span class="line">&#125;<span class="comment">//不存在就新建</span></span><br></pre></td></tr></table></figure><br>在插入操作结束后，需要将当前结点旋转至根结点以保持平衡。</p>
+<p>对于splay树的查找功能，我们首先定义函数<code>find</code>，作用为查找<code>x</code>的位置，并且把<code>x</code>旋转到根。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> u = root;</span><br><span class="line">    <span class="keyword">if</span>(!u) <span class="keyword">return</span>;<span class="comment">//树空情况</span></span><br><span class="line">    <span class="keyword">while</span>(t[u].ch[x &gt; t[u].val] &amp;&amp; x != t[u].val) u = t[u].ch[x &gt; t[u].val];</span><br><span class="line">    <span class="comment">//跳转到对应的那个儿子 </span></span><br><span class="line">    <span class="built_in">splay</span>(u, <span class="number">0</span>);</span><br><span class="line">&#125;<span class="comment">//查找x的位置，并且把x旋转到根</span></span><br></pre></td></tr></table></figure><br>之后就可以方便地查找前驱和后继。这两个操作完全对称，以下以前驱为例。首先调用一次<code>find</code>函数，找出待查找值的位置，之后从根结点开始，先向左子树移动一次，之后不断向右子树移动至叶子，即可找到前驱所在的位置。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pre</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> u = root;</span><br><span class="line">    <span class="keyword">if</span>(t[u].val &lt; x) <span class="keyword">return</span> u;</span><br><span class="line">    u = t[u].ch[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">while</span>(t[u].ch[<span class="number">1</span>]) u = t[u].ch[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;<span class="comment">//查找前驱，查找后继方法完全一致，方向相反。</span></span><br></pre></td></tr></table></figure><br>最后，利用查找前驱和后继的方式，可以方便实现删除函数<code>del</code>。我们首先获取待删除元素<code>x</code>的前驱<code>last</code>和后继<code>next</code>，之后将前驱旋转到根，将后继旋转到前驱，则此时<code>x</code>就是后继<code>last</code>对应的左儿子。之后就可以进行元素修改以删除当前值。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> temp = t[next].ch[<span class="number">0</span>];<span class="comment">//前驱后继已经旋转到位，x为后继的左儿子</span></span><br><span class="line"><span class="keyword">if</span>(t[temp].cnt &gt; <span class="number">1</span>) t[temp].cnt --, <span class="built_in">splay</span>(temp, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">else</span> t[next].ch[<span class="number">0</span>] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure><br>综上所述，我们实现了一棵splay树。</p>
+<h3 id="二、数据结构的复杂度分析"><a href="#二、数据结构的复杂度分析" class="headerlink" title="二、数据结构的复杂度分析"></a>二、数据结构的复杂度分析</h3><p>对于两种数据结构，空间复杂度自然都是$O(n)$的，因为空间开销都是为了存储$n$个结点的信息。以下我们将会讨论二者进行相关操作的时间复杂度。</p>
+<h4 id="1-AVL树操作的时间复杂度"><a href="#1-AVL树操作的时间复杂度" class="headerlink" title="1. AVL树操作的时间复杂度"></a>1. AVL树操作的时间复杂度</h4><p>我们首先研究一棵AVL树达到平衡后的树高。设$f_n$表示高度为$n$的AVL树所包含的最少结点数，则我们有如下的等式成立：</p>
+<script type="math/tex; mode=display">f_n= \left\{\begin{array}{rcl}
+    &1, &n=1 \\
+    &2, &n=2 \\
+    &f_{n-1}+f_{n-2}+1, &n>2
+  \end{array}
+  \right.</script><p>  则可以知道$f_n+1$是一个斐波那契数列，且</p>
+<script type="math/tex; mode=display">f_n=\frac{5+2\sqrt{5}}{5}\left(\frac{1+\sqrt{5}}{2}\right)^n+\frac{5-2\sqrt{5}}{5}\left(\frac{1-\sqrt{5}}{2}\right)^n-1</script><p>  于是对于树高我们有</p>
+<script type="math/tex; mode=display">n < \log_{\Phi}{(f_n+1)},\Phi=\frac{1+\sqrt{5}}{2}</script><p>  于是我们可知结点数为$n$的AVL树的树高为$O(\log{n})$。</p>
+<p>由树高可知，AVL树上的查询操作时间复杂度为$O(\log{n})$。插入结点时，每次插入对平衡造成的影响可以通过一次单旋或双旋来解决，维护的深度去取决于向下搜索的深度，因此插入操作的时间复杂度为$O(\log{n})$。删除结点时，最劣情况下从删除的结点到根结点的路径上都需要进行平衡维护，旋转次数为$O(\log{n})$，结合查询操作的时间复杂度，可得整体删除的时间复杂度为$O(\log{n})$。</p>
+<p>综上所述，AVL树上插入、删除、查询操作的单次时间复杂度均为$O(\log{n})$。</p>
+<h4 id="2-splay树操作的时间复杂度"><a href="#2-splay树操作的时间复杂度" class="headerlink" title="2. splay树操作的时间复杂度"></a>2. splay树操作的时间复杂度</h4><p>设一次操作的当前结点为<code>x</code>，其父亲为<code>p</code>，祖父为<code>g</code>。我们采用势能分析法来分析splay操作的均摊时间复杂度。设一棵splay树有$n$个结点，进行了$m$次splay步骤，令$w(x)=\log{(\text{size}(x))}$，定义势能函数为$\varphi=\sum w(x),\varphi(0) \leq n\log{n}$，第$i$次操作后势能为$\varphi(i)$。结合zig与zag操作的对称性，我们只需要对zig，zig-zig，zig-zag三种操作分析复杂度。</p>
+<ol>
+<li>zig操作，势能变化量为</li>
+</ol>
+<script type="math/tex; mode=display">\begin{aligned}
+&1+w'(x)+w'(p)-w(x)-w(p)  \\
+\leq &1+w'(p)-w(x) \\ 
+\leq &1+w'(x)-w(x) \\
+\leq &3(w'(x)-w(x))
+\end{aligned}</script><ol>
+<li>zig-zig操作，势能变化量为</li>
+</ol>
+<script type="math/tex; mode=display">\begin{aligned}
+&1+w'(x)+w'(p)+w'(g)-w(x)-w(p)-w(g) \\
+\leq &1+w'(p)+w'(g)-w(x)-w(p) \\
+\leq &1+w'(x)+w'(g)-2w(x) \\
+\leq &3(w'(x)-w(x))
+\end{aligned}</script><ol>
+<li>zig-zag操作，势能变化量为</li>
+</ol>
+<script type="math/tex; mode=display">\begin{aligned}
+&1+w'(x)+w'(p)+w'(g)-w(x)-w(p)-w(g) \\
+\leq &1+w'(p)+w'(g)-w(x)-w(p) \\
+\leq &1+w'(g)+w'(p)-2w(x) \\
+\leq &2w'(x)-w'(g)-w'(p)+w'(p)+w'(g)-w(x)-w(p) \\
+\leq &2(w'(x)-w(x)) \\
+\leq &3(w'(x)-w(x))
+\end{aligned}</script><p>由上可见，三种操作的势能变化量最后都可以放缩为以$3(w’(x)-w(x))$为上界。</p>
+<p>我们设</p>
+<script type="math/tex; mode=display">w^{(n)}(x)=w'^{(n-1)}(x),w^{(0)}(x)=w(x)</script><p>同时设splay操作一次访问了$x_1,\cdots,x_n$结点，最终根结点为$x_1$，则我们有 </p>
+<script type="math/tex; mode=display">\begin{aligned}
+&3\left(\sum_{i=0}^{n-2}\left(w^{(i+1)}(x_1)-w^{(i)}(x_1)\right)+w(n)-w^{(n-1)}(x_1)\right)+1 \\
+=&3(w(n)-w(x_1))+1 \\
+\leq &\log{n}
+\end{aligned}</script><p>进一步可得</p>
+<script type="math/tex; mode=display">\sum_{i=1}^{m}(\varphi(m-i+1)-\varphi(m-i))+\varphi(0)=n\log{n}+m\log{n}</script><p>因此可得基于splay的插入、删除、查询操作的单次均摊时间复杂度均为$O(\log{n})$。</p>
+<h3 id="三、效率测试"><a href="#三、效率测试" class="headerlink" title="三、效率测试"></a>三、效率测试</h3><h4 id="1-测例的设计与生成"><a href="#1-测例的设计与生成" class="headerlink" title="1. 测例的设计与生成"></a>1. 测例的设计与生成</h4><p>在本次lab中，我一共设计了如下三种测例。</p>
+<ol>
+<li>随机进行插入、删除、查询操作，操作总次数为$1000$次与$100000$次。为此编写了<code>makedata_rand.cpp</code>。在具体实现时，通过读取命令行参数的方式读取操作次数$n$，之后利用一个<code>check</code>数组来记录数据范围内某个数当前状态——是否存在于树中。若存在树中，则可以删除，不能再次插入；若不在树中，则可以插入，不能进行删除，在选取数进行操作时均采取了随机数对数据范围取模的方式。</li>
+<li>先进行插入操作，后进行删除操作，设计多组测例使插入操作的占比不同。最终生成时，操作总次数为$100000$次与$1000000$次，插入操作的占比为$60 \%$和$90 \%$，共生成四个测例。为此编写了<code>makedata_i+d.cpp</code>。由于插入和删除具有先后顺序，因此可以通过较为简单的方法选取数进行操作。设数据上界为$m$，我们将$[0,m]$范围内所有数加入一个<code>vector</code>中，之后对这个<code>vector</code>随机shuffle，然后按顺序取，即可保证插入数据的随机性。在插入数据的同时，用另一个<code>vector</code>记录已经插入的数，插入完成后吗对这个<code>vector</code>进行上述相同操作，即可保证删除数据的随机性，同时删除的数据一定存在。</li>
+<li>先进行插入操作，后进行查询操作。设计两组测例，其中一组为随机查询，另一组为固定一点查询。最终生成时，两组的操作总次数均包含$100000$次与$1000000$次两种情况共四个测例。为此编写了<code>makedata_i+s.cpp</code>。设数据上界为$m$，我们将$[0,m]$范围内所有数加入一个<code>vector</code>中，之后对这个<code>vector</code>随机shuffle，然后按顺序取，即可保证插入数据的随机性。在进行查询时，若随机查询，则在全部数据范围内随机一个数即可；若定点查询，在本实验中设置此顶点为整个数据范围的中位数。</li>
+</ol>
+<h4 id="2-测试结果记录"><a href="#2-测试结果记录" class="headerlink" title="2.测试结果记录"></a>2.测试结果记录</h4><p>随机插入、删除、查询操作：</p>
+<p><img src="/medias/1.png" alt="结果1"></p>
+<p>先插入后删除操作：<br>|操作次数|插入操作所占比例|树的种类|所花时间|<br><img src="/medias/2.png" alt="结果2"></p>
+<p>先插入后查询操作（查询方式为0表示随机查询，查询方式为1表示定点查询）:<br><img src="/medias/3.png" alt="结果3"></p>
+<h4 id="3-测试结果分析"><a href="#3-测试结果分析" class="headerlink" title="3. 测试结果分析"></a>3. 测试结果分析</h4><h5 id="整体结果"><a href="#整体结果" class="headerlink" title="整体结果"></a>整体结果</h5><p>整体上，我们可以显而易见地看出，AVL树的性能是显著优于splay树的性能的，偶有splay树优于AVL树的情况，优势也可以忽略不计。</p>
+<h5 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h5><p>splay树中，为了维护操作后树的平衡，对每个操作的结点都需要将其旋转至根结点处。而在AVL树中，至多只有删除操作可能需要一直旋转维护到根结点处。因此，尽管splay树和AVL树单次操作的均摊时间复杂度均为$O(\log{n})$，但splay树的操作显然具有更大的常数，导致效率更低。</p>
+<h5 id="具体测例结果分析"><a href="#具体测例结果分析" class="headerlink" title="具体测例结果分析"></a>具体测例结果分析</h5><ul>
+<li><p>随机插入、删除、查询操作<br>由于随机性，几乎每次操作splay树都要将当前结点旋转到根结点，总体旋转次数应大于AVL树，因此性能较差，且这种差距会随着数据规模增大而越发显著。</p>
+</li>
+<li><p>先插入后删除操作<br>AVL树的插入操作效率优于splay树，而二者的删除操作效率相当，因此理论上，插入操作的占比越大，AVL树的性能优势越明显。而实际数据也验证了这一点。</p>
+</li>
+<li><p>先插入后查询操作<br>考虑到splay树数据访问的结构性，定点查询的效率应该高于随机查询的效率。事实也确实如此，但是仍然是AVL树的效率更高。</p>
+</li>
+</ul>
+<p>综上所述，我们得出结论：在实际应用中，AVL树的性能高于splay树的性能。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">NAGISA</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/01/26/Lab3-Report/">http://example.com/2023/01/26/Lab3-Report/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DSA%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">DSA解题报告</a></div><div class="post_share"><div class="social-share" data-image="/medias/dsa.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/01/26/Lab2-Report/"><img class="next-cover" src="/medias/dsa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Lab2 Report</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/20/PA1-2-Report/" title="PA1-2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-2 Report</div></div></a></div><div><a href="/2023/01/26/Lab1-Report/" title="Lab1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab1 Report</div></div></a></div><div><a href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">Lab2 Report</div></div></a></div><div><a href="/2023/01/20/PA1-1-Report/" title="PA1-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-20</div><div class="title">PA1-1 Report</div></div></a></div><div><a href="/2023/01/26/PA2-1-Report/" title="PA2-1 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">PA2-1 Report</div></div></a></div><div><a href="/2023/01/26/PA2-2-Report/" title="PA2-2 Report"><img class="cover" src="/medias/dsa.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-26</div><div class="title">PA2-2 Report</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NAGISA</div><div class="author-info__description">cmh的个人网页</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">一、数据结构的实现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-AVL%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. AVL树的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-splay%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">2. splay树的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">二、数据结构的复杂度分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-AVL%E6%A0%91%E6%93%8D%E4%BD%9C%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">2.1.</span> <span class="toc-text">1. AVL树操作的时间复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-splay%E6%A0%91%E6%93%8D%E4%BD%9C%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">2.2.</span> <span class="toc-text">2. splay树操作的时间复杂度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%95%88%E7%8E%87%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">三、效率测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%B5%8B%E4%BE%8B%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.1.</span> <span class="toc-text">1. 测例的设计与生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C%E8%AE%B0%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">2.测试结果记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">3.3.</span> <span class="toc-text">3. 测试结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%9C"><span class="toc-number">3.3.1.</span> <span class="toc-text">整体结果</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-number">3.3.2.</span> <span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%B5%8B%E4%BE%8B%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">3.3.3.</span> <span class="toc-text">具体测例结果分析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab3-Report/" title="Lab3 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab3 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab3-Report/" title="Lab3 Report">Lab3 Report</a><time datetime="2023-01-26T04:49:00.000Z" title="Created 2023-01-26 12:49:00">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab2-Report/" title="Lab2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab2-Report/" title="Lab2 Report">Lab2 Report</a><time datetime="2023-01-26T04:46:48.000Z" title="Created 2023-01-26 12:46:48">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-6 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-6-Report/" title="PA3-6 Report">PA3-6 Report</a><time datetime="2023-01-26T04:45:02.000Z" title="Created 2023-01-26 12:45:02">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PA3-2 Report"/></a><div class="content"><a class="title" href="/2023/01/26/PA3-2-Report/" title="PA3-2 Report">PA3-2 Report</a><time datetime="2023-01-26T04:44:16.000Z" title="Created 2023-01-26 12:44:16">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/Lab1-Report/" title="Lab1 Report"><img src="/medias/dsa.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lab1 Report"/></a><div class="content"><a class="title" href="/2023/01/26/Lab1-Report/" title="Lab1 Report">Lab1 Report</a><time datetime="2023-01-26T04:42:00.000Z" title="Created 2023-01-26 12:42:00">2023-01-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By NAGISA</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
