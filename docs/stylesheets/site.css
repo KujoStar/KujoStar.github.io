@@ -61,11 +61,16 @@ a { color: var(--accent); }
 .md-typeset a:hover { color: var(--accent); }
 [data-page="home"] .md-main { display: flex; align-items: center; }
 [data-page="home"] .md-main__inner { width: 100%; height: auto; align-items: center; }
-[data-page="home"] .md-content { width: 100%; }
+[data-page="home"] .md-content { width: 100%; animation: none; }
 .home-hero { width: 100%; max-width: 960px; margin: 0 auto; padding: 70px 0; text-align: center; }
-.md-typeset .home-hero h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px,3.7vw,48px); font-weight: 700; line-height: 1.35; letter-spacing: -.025em; margin: 0 auto 48px; text-wrap: balance; }
+.md-typeset .home-hero h1 { font-family: Georgia, "Times New Roman", var(--serif); font-size: clamp(28px,3.7vw,48px); font-weight: 700; line-height: 1.35; letter-spacing: -.025em; margin: 0 auto 48px; text-wrap: balance; overflow-wrap: anywhere; }
 .quote-line { display: block; }
 .home-hero h1 .quote-ending { color: var(--accent); }
+.is-typing .quote-letter { visibility: hidden; }
+.is-typing .quote-letter.is-typed { visibility: visible; }
+.quote-letter.is-cursor { position: relative; }
+.quote-letter.is-cursor::after { content: ""; position: absolute; height: .9em; top: .12em; right: -.08em; border-right: .045em solid var(--accent); animation: caret-blink .7s step-end infinite; }
+@keyframes caret-blink { 50% { opacity: 0; } }
 .home-search { display: flex; align-items: center; width: 100%; max-width: 640px; margin: 0 auto; border-bottom: 1px solid var(--accent); gap: 14px; padding: 0 0 14px; }
 .home-search > span { flex: 0 0 36px; color: var(--accent); font-size: 28px; line-height: 1; }
 .home-search input { border: 0; outline: none; background: transparent; flex: 1; width: 100%; min-width: 0; color: var(--ink); font-size: 17px; font-weight: 600; text-align: left; }
@@ -268,6 +273,8 @@ dialog::backdrop { background: rgb(15 25 35 / 55%); backdrop-filter: blur(3px); 
   .not-found h1 { font-size: 30px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .is-typing .quote-letter { visibility: visible; }
+  .quote-letter.is-cursor::after { display: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

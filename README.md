@@ -52,7 +52,7 @@ tags: [助教, 程序设计]
 
 | 内容 | 文件 |
 |---|---|
-| 首页大标题 | `site_builder.py` 中的 `home()` |
+| 首页候选标题 | `data/home-quotes.yml` |
 | 分类和顺序 | `data/site-catalog.yml` |
 | 友链名称和网址 | `data/friends.yml` |
 | 站名、域名、评论配置 | `mkdocs.yml` |
@@ -62,6 +62,10 @@ tags: [助教, 程序设计]
 
 搜索快捷键为 `Ctrl+Enter`（macOS 为 `⌘+Enter`），`Esc` 关闭。
 公式使用 MathJax，PDF 预览使用 PDF.js。
+
+首页每次加载会从 `data/home-quotes.yml` 的 `quotes` 中随机选一句，并播放一次打字动画。
+每项的 `lang` 填 `en` 或 `zh-CN`，`lines` 中每一项对应一行，最后一行使用强调色；窄屏会自动换行。
+复制现有条目即可增加候选。开启系统的“减少动画”时直接显示全文。
 
 ## 评论
 

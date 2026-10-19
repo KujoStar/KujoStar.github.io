@@ -67,6 +67,21 @@ def validate_named(item, seen, source):
     seen.add(item["id"])
 
 
+def read_home_quotes(path):
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    quotes = data.get("quotes") if isinstance(data, dict) else None
+    if not isinstance(quotes, list) or not quotes:
+        raise ValueError(f"{path}: quotes must be a nonempty list")
+    for item in quotes:
+        if not isinstance(item, dict) or not isinstance(item.get("lang"), str) or not re.fullmatch(r"[a-zA-Z]+(?:-[a-zA-Z0-9]+)*", item["lang"]):
+            raise ValueError(f"{path}: each quote needs a language code")
+        lines = item.get("lines")
+        if not isinstance(lines, list) or not lines or any(not isinstance(line, str) or not line.strip() for line in lines):
+            raise ValueError(f"{path}: quote lines must contain nonempty text")
+        item["lines"] = [line.strip() for line in lines]
+    return quotes
+
+
 def summary(body):
     paragraph = next((p for p in body.split("\n\n") if not p.startswith(("#", "<", "```", "$$"))), "")
     paragraph = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", paragraph)
@@ -131,6 +146,7 @@ class Site:
         self.root, self.config = Path(root), config
         try:
             self.categories = read_catalog(self.root / "data/site-catalog.yml")
+            self.home_quotes = read_home_quotes(self.root / "data/home-quotes.yml")
             self.articles = build_articles(self.root, self.categories)
             self.friends = yaml.safe_load((self.root / "data/friends.yml").read_text(encoding="utf-8"))["friends"]
             for friend in self.friends:
@@ -146,10 +162,10 @@ class Site:
         self.rendered = {}
 
     def home(self):
-        return '''<section class="home-hero">
-<h1 lang="en"><span class="quote-line">Day before yesterday I saw a rabbit,</span>
-<span class="quote-line">and yesterday a deer,</span>
-<span class="quote-line quote-ending">and today, you.</span></h1>
+        first = self.home_quotes[0]
+        lines = "\n".join(f'<span class="quote-line{ " quote-ending" if i == len(first["lines"]) - 1 else ""}">{esc(line)}</span>' for i, line in enumerate(first["lines"]))
+        return f'''<section class="home-hero">
+<h1 lang="{esc(first['lang'])}" data-home-quotes="{esc(json.dumps(self.home_quotes, ensure_ascii=False))}">{lines}</h1>
 <form class="home-search" role="search" data-home-search>
   <label class="sr-only" for="home-query">搜索</label><span aria-hidden="true">⌕</span>
   <input id="home-query" name="q" type="search" placeholder="Search..." autocomplete="off">

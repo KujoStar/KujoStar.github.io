@@ -37,6 +37,7 @@ extra:
 extra_css:
   - stylesheets/site.css
 extra_javascript:
+  - javascripts/home-title.js
   - javascripts/search-core.js
   - javascripts/site.js
 markdown_extensions:
