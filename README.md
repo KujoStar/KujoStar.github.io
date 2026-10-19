@@ -56,7 +56,7 @@ tags: [助教, 程序设计]
 | 导航头像 | `docs/assets/avatar.jpg` |
 | 浏览器图标 | `docs/assets/favicon.png`、`docs/favicon.ico` |
 | 分类和顺序 | `data/site-catalog.yml` |
-| 友链名称和网址 | `data/friends.yml` |
+| 友链名称、描述、头像和网址 | `data/friends.yml` |
 | 站名、域名、评论配置 | `mkdocs.yml` |
 | 页面模板 | `overrides/` |
 | 颜色、字体、排版 | `docs/stylesheets/site.css` |
@@ -68,6 +68,9 @@ tags: [助教, 程序设计]
 首页每次加载会从 `data/home-quotes.yml` 的 `quotes` 中随机选一句，并播放一次打字动画。
 每项的 `lang` 填 `en` 或 `zh-CN`，`lines` 中每一项对应一行，最后一行使用强调色；窄屏会自动换行。
 复制现有条目即可增加候选。开启系统的“减少动画”时直接显示全文。
+
+友链在 `data/friends.yml` 中维护：`name` 是标题，`description` 是个人描述，
+`avatar` 是头像地址，`url` 是博客地址。头像和博客地址使用 HTTPS。
 
 ## 评论
 
