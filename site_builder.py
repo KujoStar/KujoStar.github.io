@@ -152,10 +152,9 @@ class Site:
 <span class="quote-line quote-ending">and today, you.</span></h1>
 <form class="home-search" role="search" data-home-search>
   <label class="sr-only" for="home-query">搜索</label><span aria-hidden="true">⌕</span>
-  <input id="home-query" name="q" type="search" placeholder="搜索" autocomplete="off">
+  <input id="home-query" name="q" type="search" placeholder="Search..." autocomplete="off">
   <button type="submit" aria-label="搜索">↗</button>
 </form>
-<a class="home-browse" href="/blog/">文章目录 <span aria-hidden="true">→</span></a>
 </section>'''
 
     def catalog(self):

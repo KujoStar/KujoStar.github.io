@@ -5,6 +5,7 @@
       {% for label, target, key in [('首页', '', 'home'), ('内容', 'blog/', 'catalog'), ('标签', 'tags/', 'tags'), ('友链', 'friends/', 'friends')] %}
       <a href="{{ ('/' ~ target) | url }}"{% if page and ((target == '' and page.is_homepage) or (target and page.url.startswith(target))) %} aria-current="page"{% endif %}>{{ label }}</a>
       {% endfor %}
+      <a class="nav-github" href="{{ config.extra.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub 主页" title="GitHub"><span aria-hidden="true">{% include ".icons/fontawesome/brands/github.svg" %}</span></a>
     </div>
     <div class="nav-actions"><button type="button" class="search-toggle" data-open-search aria-label="打开搜索" title="搜索 · Ctrl+Enter"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 13a8.7 8.7 0 0 1-9.5-9.5A8.7 8.7 0 1 0 20.5 13Z"/></svg></button></div>
   </nav>
