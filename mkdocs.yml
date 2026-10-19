@@ -31,11 +31,11 @@ extra:
   tagline: 学习、教学与科研的个人记录
   github: https://github.com/KujoStar
   giscus:
-    enabled: false
+    enabled: true
     repo: KujoStar/KujoStar.github.io
-    repo_id: ""
+    repo_id: "R_kgDOIu0ofw"
     category: Announcements
-    category_id: ""
+    category_id: "DIC_kwDOIu0of84DI_7I"
 extra_css:
   - stylesheets/site.css
 extra_javascript:

@@ -86,7 +86,7 @@ PDF 页面接近视口时才加载 PDF.js 4.10.38，支持上一页／下一页�
 
 ## 启用评论
 
-评论实现已接入，默认关闭，避免出现无效组件。
+评论已启用，连接 `KujoStar/KujoStar.github.io` 的 Announcements 讨论分类。giscus 仅获授权访问本站仓库。以下步骤用于以后重新配置：
 
 1. 在 <https://github.com/KujoStar/KujoStar.github.io/settings> 中启用 **Discussions**。
 2. 在 <https://github.com/apps/giscus> 安装 giscus，只授权本站仓库。
@@ -105,7 +105,7 @@ node --test tests/*.test.js
 .\.venv\Scripts\python.exe -B scripts/check_site.py
 ```
 
-GitHub Pages 初次切换：在 <https://github.com/KujoStar/KujoStar.github.io/settings/pages> 中把 **Build and deployment → Source** 设为 **GitHub Actions**。将重构分支合入 `main` 后，工作流会验证并上传 `site/`，由官方 Pages 部署任务发布。PR 仅验证和上传产物，不发布；也可在 Actions 中从 `main` 手动运行。
+GitHub Pages 发布来源已设为 **GitHub Actions**。向 `main` 推送更新后，工作流会验证并上传 `site/`，由官方 Pages 部署任务发布。PR 仅验证和上传产物，不发布；也可在 Actions 中从 `main` 手动运行。发布设置位于 <https://github.com/KujoStar/KujoStar.github.io/settings/pages>。
 
 公开工作流使用 GitHub 自动提供的权限，不需要部署密钥。生产域名保持 <https://kujostar.github.io/>。根路径部署是当前约定；若以后改成带子路径的 project Pages，须统一调整根相对链接并重新验证。
 

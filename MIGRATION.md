@@ -28,4 +28,4 @@
 
 网站源码、文章和脚本均位于新目录。`legacy/` 中的旧文件是原封不动的快照，不参与发布；同学的仓库没有修改。
 
-GitHub 公开状态检查：本站已启用 Pages，Discussions 尚未开启。发布来源的切换和 giscus 应用授权需要在仓库设置中完成，步骤见 README。
+2026-10-19 已将 Pages 发布来源切换为 GitHub Actions，开启 Discussions，并由仓库所有者完成仅针对本站仓库的 giscus 应用授权。评论使用稳定文章 ID 关联 Announcements 分类中的讨论，后续维护步骤见 README。
