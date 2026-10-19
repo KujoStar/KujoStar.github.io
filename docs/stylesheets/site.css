@@ -2,6 +2,7 @@
 :root {
   --paper: #f7f5f0; --paper-deep: #eeece5; --ink: #252d35; --muted: #697179;
   --accent: #234e70; --line: #d8dbd9; --soft-line: #e6e6df; --surface: #fcfbf7;
+  --background-image: url("../assets/background.webp"); --background-opacity: .14;
   --serif: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
@@ -10,6 +11,7 @@
 :root[data-theme="slate"] {
   --paper: #151e27; --paper-deep: #1d2a36; --ink: #e5e9ed; --muted: #a7b2bc;
   --accent: #9bc2e4; --line: #36434f; --soft-line: #293642; --surface: #1a2530;
+  --background-opacity: .12;
   color-scheme: dark;
 }
 body[data-md-color-scheme] {
@@ -22,7 +24,10 @@ body[data-md-color-scheme] {
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-body { margin: 0; }
+body { margin: 0; position: relative; isolation: isolate; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: var(--background-image); background-position: center; background-size: cover; background-repeat: no-repeat; opacity: var(--background-opacity); }
+body[data-page="article"]::before { opacity: calc(var(--background-opacity) * .6); }
+@media print { body::before { display: none; } }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }

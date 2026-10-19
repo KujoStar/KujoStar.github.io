@@ -35,7 +35,7 @@ extra:
     category: Announcements
     category_id: "DIC_kwDOIu0of84DI_7I"
 extra_css:
-  - stylesheets/site.css?v=20261019-friend-defaults
+  - stylesheets/site.css?v=20261019-background
 extra_javascript:
   - javascripts/home-title.js
   - javascripts/search-core.js

@@ -55,6 +55,7 @@ tags: [助教, 程序设计]
 | 首页候选标题 | `data/home-quotes.yml` |
 | 导航头像 | `docs/assets/avatar.jpg` |
 | 浏览器图标 | `docs/assets/favicon.png`、`docs/favicon.ico` |
+| 全站背景图片 | `docs/assets/background.webp` |
 | 分类和顺序 | `data/site-catalog.yml` |
 | 友链名称、描述、头像和网址 | `data/friends.yml` |
 | 站名、域名、评论配置 | `mkdocs.yml` |
@@ -64,6 +65,9 @@ tags: [助教, 程序设计]
 
 搜索快捷键为 `Ctrl+Enter`（macOS 为 `⌘+Enter`），`Esc` 关闭。
 公式使用 MathJax，PDF 预览使用 PDF.js。
+
+背景透明度在 `docs/stylesheets/site.css` 的 `--background-opacity` 中调整：浅色主题为 `0.14`，
+深色主题为 `0.12`；文章页使用对应值的 60%。背景图居中铺满屏幕，随屏幕比例裁切。
 
 首页每次加载会从 `data/home-quotes.yml` 的 `quotes` 中随机选一句，并播放一次打字动画。
 每项的 `lang` 填 `en` 或 `zh-CN`，`lines` 中每一项对应一行，最后一行使用强调色；窄屏会自动换行。
