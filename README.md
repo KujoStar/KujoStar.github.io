@@ -66,7 +66,9 @@ tags: [助教, 程序设计]
 搜索快捷键为 `Ctrl+Enter`（macOS 为 `⌘+Enter`），`Esc` 关闭。
 公式使用 MathJax，PDF 预览使用 PDF.js。
 
-背景透明度在 `docs/stylesheets/site.css` 的 `--background-opacity` 中调整：浅色主题为 `0.14`，
+归档页自动汇总全部文章，按发布日期排列，可切换从新到旧或从旧到新，并显示大类和子类。
+
+背景透明度在 `docs/stylesheets/site.css` 的 `--background-opacity` 中调整：浅色主题为 `0.24`，
 深色主题为 `0.12`；文章页使用对应值的 60%。背景图居中铺满屏幕，随屏幕比例裁切。
 
 首页每次加载会从 `data/home-quotes.yml` 的 `quotes` 中随机选一句，并播放一次打字动画。

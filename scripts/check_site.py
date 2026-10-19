@@ -137,9 +137,24 @@ def check_site(root=ROOT):
         for heading in item["headings"]:
             if not page.find(id=heading["anchor"]):
                 errors.append(f"Invalid search anchor: {item['id']}")
+    archive = pages.get(site / "archives/index.html")
+    if archive is None:
+        errors.append("Missing archive page")
+    else:
+        expected = sorted(full["items"], key=lambda a: (a["date"], a["id"]), reverse=True)
+        entries = archive.select(".archive-entry")
+        if [entry.select_one("a")["href"] for entry in entries] != [a["url"] for a in expected]:
+            errors.append("Archive must include every article in descending publication order")
+        for entry, article in zip(entries, expected):
+            if entry.select_one("time")["datetime"] != article["date"] or entry.select_one(".archive-title").get_text() != article["title"]:
+                errors.append(f"Archive title/date mismatch: {article['id']}")
+            if entry.select_one(".archive-category").get_text() != f"{article['category']} / {article['subcategory']}":
+                errors.append(f"Archive category mismatch: {article['id']}")
+        if [a.get_text(strip=True) for a in archive.select(".nav-links a:not(.nav-github)")] != ["首页", "内容", "归档", "标签", "友链"]:
+            errors.append("Archive navigation order is incorrect")
     if errors:
         raise AssertionError("\n".join(errors))
-    return f"OK: {len(full['items'])} articles; {len(redirects)} redirects; {len(pages)} HTML pages; migration, assets, links, anchors, SEO and search checked."
+    return f"OK: {len(full['items'])} articles; {len(redirects)} redirects; {len(pages)} HTML pages; migration, assets, links, anchors, SEO, search and archives checked."
 
 
 if __name__ == "__main__":

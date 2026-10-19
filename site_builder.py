@@ -218,6 +218,15 @@ class Site:
         out.append('</ol><p class="tag-empty" hidden>暂无文章</p>')
         return "\n".join(out)
 
+    def archives(self):
+        out = ['<header class="page-heading"><h1>归档</h1></header>',
+               f'<div class="archive-toolbar"><span class="archive-count">{len(self.articles)} 篇文章</span><label class="archive-sort" hidden>排序<select id="archive-order" aria-controls="archive-list"><option value="newest">从新到旧</option><option value="oldest">从旧到新</option></select></label></div>',
+               '<p class="sr-only" id="archive-status" role="status" aria-live="polite"></p><ol class="archive-list" id="archive-list">']
+        for article in sorted(self.articles, key=lambda a: (a["date"], a["id"]), reverse=True):
+            out.append(f'''<li class="archive-entry"><a class="archive-link" href="{esc(article['url'])}"><time datetime="{article['date']}">{article['date'].replace('-', '.')}</time><span class="archive-title">{esc(article['title'])}</span><span class="archive-category">{esc(article['category'])} / {esc(article['subcategory'])}</span><span class="archive-arrow" aria-hidden="true">↗</span></a></li>''')
+        out.append('</ol>')
+        return "\n".join(out)
+
     def friends_page(self):
         out = ['<header class="page-heading"><h1>友链</h1></header><ul class="friend-list">']
         for friend in self.friends:
@@ -239,7 +248,7 @@ class Site:
             members = ordered_articles(self.articles, category, child)
             index = members.index(article)
             page.meta["neighbors"] = {"previous": members[index - 1] if index > 0 else None, "next": members[index + 1] if index + 1 < len(members) else None, "series": bool(child.get("order"))}
-        for name, renderer in {"HOME": self.home, "CATALOG": self.catalog, "TAGS": self.tags, "FRIENDS": self.friends_page}.items():
+        for name, renderer in {"HOME": self.home, "CATALOG": self.catalog, "ARCHIVES": self.archives, "TAGS": self.tags, "FRIENDS": self.friends_page}.items():
             marker = f"[NAGISA:{name}]"
             if marker in markdown:
                 markdown = markdown.replace(marker, renderer())

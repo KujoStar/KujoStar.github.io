@@ -24,6 +24,7 @@ hooks:
 nav:
   - 首页: index.md
   - 内容: blog/index.md
+  - 归档: archives/index.md
   - 标签: tags/index.md
   - 友链: friends/index.md
 extra:
@@ -35,11 +36,11 @@ extra:
     category: Announcements
     category_id: "DIC_kwDOIu0of84DI_7I"
 extra_css:
-  - stylesheets/site.css?v=20261019-annual-reviews
+  - stylesheets/site.css?v=20261019-archives
 extra_javascript:
   - javascripts/home-title.js
   - javascripts/search-core.js
-  - javascripts/site.js
+  - javascripts/site.js?v=20261019-archives
 markdown_extensions:
   - attr_list
   - admonition

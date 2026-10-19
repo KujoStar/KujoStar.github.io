@@ -62,6 +62,19 @@
     $(".tag-empty").hidden = count > 0;
   }
   selectShelf(); filterTags();
+  const archiveOrder = $("#archive-order"), archiveList = $("#archive-list");
+  if (archiveOrder && archiveList) {
+    const newestFirst = Array.from(archiveList.children);
+    function sortArchives() {
+      const oldestFirst = archiveOrder.value === "oldest";
+      archiveList.replaceChildren(...(oldestFirst ? newestFirst.slice().reverse() : newestFirst));
+      $("#archive-status").textContent = `已按发布时间${oldestFirst ? "从旧到新" : "从新到旧"}排列，共 ${newestFirst.length} 篇文章`;
+    }
+    archiveOrder.closest("label").hidden = false;
+    archiveOrder.addEventListener("change", sortArchives);
+    addEventListener("pageshow", sortArchives);
+    sortArchives();
+  }
   addEventListener("hashchange", () => {
     selectShelf(); filterTags();
     if ($(".shelves")) window.scrollTo({top: 0, behavior: "instant"});
