@@ -3,7 +3,6 @@ id: pa1-1-report
 title: PA1-1 Report
 date: '2023-01-20'
 updated: '2023-01-20'
-description: 通过压位存储实现高精度整数乘法。
 tags:
 - DSA解题报告
 ---

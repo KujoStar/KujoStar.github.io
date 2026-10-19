@@ -1,8 +1,7 @@
 site_name: NAGISA's Blog
 site_author: NAGISA
-site_description: 学习、教学与科研的个人记录
+site_description: NAGISA's Blog
 site_url: https://kujostar.github.io/
-copyright: © 2022–2026 NAGISA
 docs_dir: docs
 site_dir: site
 use_directory_urls: true
@@ -28,8 +27,6 @@ nav:
   - 标签: tags/index.md
   - 友链: friends/index.md
 extra:
-  tagline: 学习、教学与科研的个人记录
-  github: https://github.com/KujoStar
   giscus:
     enabled: true
     repo: KujoStar/KujoStar.github.io

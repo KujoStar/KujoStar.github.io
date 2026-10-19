@@ -3,7 +3,6 @@ id: probability-theory-notes-2
 title: Probability_Theory_Notes_2
 date: '2023-01-21'
 updated: '2023-01-21'
-description: 统计推断部分的课程笔记，接续概率论笔记，附 PDF。
 tags:
 - 概统课程笔记
 ---

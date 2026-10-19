@@ -1,3 +1,4 @@
 {% extends "main.html" %}
+{% block site_nav %}{% endblock %}
 {% block extrahead %}<meta name="robots" content="noindex">{% endblock %}
-{% block content %}<div id="main-content" class="not-found"><p class="eyebrow">PAGE NOT FOUND / 404</p><h1>这一页，暂时没有写下。</h1><p>也许地址已经改变，试着从目录或搜索找回它。</p><div><a href="/">返回首页 →</a><a href="/blog/">浏览内容 →</a><button type="button" data-open-search>搜索笔记 ↗</button></div></div>{% endblock %}
+{% block content %}<div id="main-content" class="not-found"><h1>404 · 页面不存在</h1><div><a href="/">首页 →</a><a href="/blog/">文章目录 →</a><button type="button" data-open-search>搜索 ↗</button></div></div>{% endblock %}

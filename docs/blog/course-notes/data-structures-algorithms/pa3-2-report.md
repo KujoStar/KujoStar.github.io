@@ -3,7 +3,6 @@ id: pa3-2-report
 title: PA3-2 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 在空间限制下，使用位图寻找最短缺失二进制子串。
 tags:
 - DSA解题报告
 ---

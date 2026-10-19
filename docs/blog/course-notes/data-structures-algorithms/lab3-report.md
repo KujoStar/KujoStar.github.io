@@ -3,7 +3,6 @@ id: lab3-report
 title: Lab3 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 实现 AVL 树与 Splay 树，比较平衡树的操作与性能。
 tags:
 - DSA解题报告
 ---

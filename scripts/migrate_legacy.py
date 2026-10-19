@@ -15,24 +15,6 @@ from markdownify import MarkdownConverter
 
 ROOT = Path(__file__).resolve().parents[1]
 MATH = re.compile(r"(?<!\\)\$\$[\s\S]*?(?<!\\)\$\$|(?<!\\)\$(?!\$)[^$\n]*?(?<!\\)\$|\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]")
-DESCRIPTIONS = {
-    "hello-world": "本站最初的建站记录，保留 Hexo 的快速上手说明。",
-    "pa3-4-2-report": "使用动态开点线段树处理大区间的更新与求和。",
-    "pa4-1-report": "用字典树处理限定窗口内的 64 位二进制串异或最大值查询。",
-    "pa4-2-report": "使用优先队列优化 Dijkstra 算法，计算最短路径及其数量。",
-    "probability-theory-notes-1": "初等概率论课程笔记，提供完整 PDF 预览与下载。",
-    "pa1-1-report": "通过压位存储实现高精度整数乘法。",
-    "pa1-2-report": "利用排序与二分查找，判断线段和给定点的相对位置。",
-    "probability-theory-notes-2": "统计推断部分的课程笔记，接续概率论笔记，附 PDF。",
-    "lab1-report": "分析十份错误程序，定位错误原因并构造对应测例。",
-    "lab2-report": "实现不同字符串哈希与冲突处理策略，并比较实验性能。",
-    "lab3-report": "实现 AVL 树与 Splay 树，比较平衡树的操作与性能。",
-    "pa2-1-report": "使用单调队列和二分查找，统计区间最大值的分布。",
-    "pa2-2-report": "通过多项式运算与栈求值，实现表达式展开。",
-    "pa3-2-report": "在空间限制下，使用位图寻找最短缺失二进制子串。",
-    "pa3-6-report": "使用 k-d 树和空间剪枝求解多维最近邻查询。",
-    "2023-2-20": "大二下学期开学第一天的校园日常。",
-}
 
 
 class MkDocsConverter(MarkdownConverter):
@@ -149,7 +131,7 @@ def migrate(root=ROOT, overwrite=False):
         tags = list(dict.fromkeys(a.get_text() for a in soup.select(".tag_share .tag-list a, .tag_share a.post-meta__tags")))
         if not tags:
             tags = ["DSA解题报告"] if category == "course-notes" and child.startswith("data-") else ["概统课程笔记"] if category == "course-notes" else ["杂谈和日记"] if child == "campus-life" else []
-        metadata = {"id": article_id, "title": title, "date": dates[0], "updated": dates[-1], "description": DESCRIPTIONS.get(article_id, title), "tags": tags}
+        metadata = {"id": article_id, "title": title, "date": dates[0], "updated": dates[-1], "tags": tags}
         content = convert_body(body)
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text("---\n" + yaml.safe_dump(metadata, allow_unicode=True, sort_keys=False) + "---\n\n" + content, encoding="utf-8", newline="\n")

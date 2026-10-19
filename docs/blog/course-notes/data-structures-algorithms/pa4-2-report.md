@@ -3,7 +3,6 @@ id: pa4-2-report
 title: PA4-2 Report
 date: '2023-01-07'
 updated: '2023-01-07'
-description: 使用优先队列优化 Dijkstra 算法，计算最短路径及其数量。
 tags:
 - DSA解题报告
 ---

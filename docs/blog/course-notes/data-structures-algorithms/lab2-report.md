@@ -3,7 +3,6 @@ id: lab2-report
 title: Lab2 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 实现不同字符串哈希与冲突处理策略，并比较实验性能。
 tags:
 - DSA解题报告
 ---

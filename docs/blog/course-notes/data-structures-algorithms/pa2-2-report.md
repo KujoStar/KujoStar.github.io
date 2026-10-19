@@ -3,7 +3,6 @@ id: pa2-2-report
 title: PA2-2 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 通过多项式运算与栈求值，实现表达式展开。
 tags:
 - DSA解题报告
 ---

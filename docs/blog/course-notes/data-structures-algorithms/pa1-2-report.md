@@ -3,7 +3,6 @@ id: pa1-2-report
 title: PA1-2 Report
 date: '2023-01-20'
 updated: '2023-01-20'
-description: 利用排序与二分查找，判断线段和给定点的相对位置。
 tags:
 - DSA解题报告
 ---

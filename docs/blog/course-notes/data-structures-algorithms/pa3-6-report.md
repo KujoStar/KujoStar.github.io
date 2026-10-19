@@ -3,7 +3,6 @@ id: pa3-6-report
 title: PA3-6 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 使用 k-d 树和空间剪枝求解多维最近邻查询。
 tags:
 - DSA解题报告
 ---

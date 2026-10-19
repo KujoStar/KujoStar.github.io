@@ -3,7 +3,6 @@ id: pa2-1-report
 title: PA2-1 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 使用单调队列和二分查找，统计区间最大值的分布。
 tags:
 - DSA解题报告
 ---

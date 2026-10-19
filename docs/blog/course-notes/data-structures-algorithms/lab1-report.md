@@ -3,7 +3,6 @@ id: lab1-report
 title: Lab1 Report
 date: '2023-01-26'
 updated: '2023-01-26'
-description: 分析十份错误程序，定位错误原因并构造对应测例。
 tags:
 - DSA解题报告
 ---

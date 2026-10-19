@@ -58,7 +58,7 @@
       if (!row.hidden) count++;
     });
     $$(".tag-filter").forEach(a => a.setAttribute("aria-current", String((a.dataset.tag || "") === tag)));
-    $(".filter-status").textContent = (tag ? `#${tag} · ` : "全部笔记 · ") + `${count} 篇记录`;
+    $(".filter-status").textContent = (tag ? `#${tag} · ` : "全部 · ") + `${count} 篇`;
     $(".tag-empty").hidden = count > 0;
   }
   selectShelf(); filterTags();
@@ -112,7 +112,7 @@
   }
   async function runSearch() {
     const version = ++revision, query = queryInput.value.trim(), status = $(".search-status");
-    if (!query) { renderResults([], ""); status.textContent = "输入关键词，寻找相关笔记。"; return; }
+    if (!query) { renderResults([], ""); status.textContent = ""; return; }
     status.textContent = "正在查找……";
     try {
       const light = await catalog();
@@ -122,9 +122,9 @@
       if (version !== revision) return;
       const results = window.NagisaSearch.search(full.items, query);
       renderResults(results, query);
-      status.textContent = results.length ? `找到 ${results.length} 篇相关笔记${results.length > 30 ? "，显示前 30 篇" : ""}。` : "没有找到相关笔记，试试更短的关键词。";
+      status.textContent = results.length ? `共 ${results.length} 篇${results.length > 30 ? "，显示前 30 篇" : ""}` : "无搜索结果";
     } catch (_) {
-      if (version === revision) status.textContent = "暂时无法加载搜索数据。请检查网络后按 Enter 重试，或从内容目录浏览。";
+      if (version === revision) status.textContent = "搜索加载失败，按 Enter 重试。";
     }
   }
   function openSearch(query = "") {

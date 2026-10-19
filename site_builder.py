@@ -115,7 +115,7 @@ def build_articles(root, categories):
 
 
 def article_row(article):
-    return f'''<li class="article-row" data-tags="{esc(json.dumps(article['tags'], ensure_ascii=False))}"><a href="{esc(article['url'])}"><span class="article-row-main"><span class="article-row-title">{esc(article['title'])}</span><span class="article-row-desc">{esc(article['description'])}</span></span><time datetime="{article['date']}">{article['date'].replace('-', '.')}</time><span aria-hidden="true" class="row-arrow">↗</span></a></li>'''
+    return f'''<li class="article-row" data-tags="{esc(json.dumps(article['tags'], ensure_ascii=False))}"><a href="{esc(article['url'])}"><span class="article-row-main"><span class="article-row-title">{esc(article['title'])}</span></span><time datetime="{article['date']}">{article['date'].replace('-', '.')}</time><span aria-hidden="true" class="row-arrow">↗</span></a></li>'''
 
 
 def ordered_articles(articles, category, child):
@@ -146,27 +146,35 @@ class Site:
         self.rendered = {}
 
     def home(self):
-        return f'''<section class="home-hero"><div class="home-eyebrow"><span class="small-rule"></span> NAGISA'S NOTEBOOK <span class="home-volume">VOL. 01 — ONGOING</span></div><h1>在学习与生活之间，<br>留下一些<span>记录。</span></h1><p class="home-intro">{esc(self.config['extra']['tagline'])}</p><form class="home-search" role="search" data-home-search><label class="sr-only" for="home-query">搜索笔记</label><span aria-hidden="true">⌕</span><input id="home-query" name="q" type="search" placeholder="寻找一个问题、一篇笔记……" autocomplete="off"><button type="submit" aria-label="搜索笔记">↗</button></form><div class="home-search-hint"><span>从一个关键词开始</span><kbd>Ctrl ↵</kbd></div><a class="home-browse" href="/blog/">浏览全部笔记 <span aria-hidden="true">→</span></a></section><div class="home-bottom"><span>学习 · 教学 · 科研 · 生活</span><span>{len(self.articles):02d} 篇记录 / 05 个分类</span></div>'''
+        return '''<section class="home-hero">
+<h1>在学习与生活之间，<br>留下一些<span>记录。</span></h1>
+<form class="home-search" role="search" data-home-search>
+  <label class="sr-only" for="home-query">搜索</label><span aria-hidden="true">⌕</span>
+  <input id="home-query" name="q" type="search" placeholder="搜索" autocomplete="off">
+  <button type="submit" aria-label="搜索">↗</button>
+</form>
+<a class="home-browse" href="/blog/">文章目录 <span aria-hidden="true">→</span></a>
+</section>'''
 
     def catalog(self):
-        out = [f'<header class="page-heading"><p class="eyebrow">THE COLLECTION</p><h1>内容<span class="heading-dot">.</span></h1><p>把零散的思考，整理成可以重访的地方。</p><span class="page-count">{len(self.categories)} 个分类 · {len(self.articles)} 篇记录</span></header><nav class="category-index" aria-label="内容分类">']
-        for number, category in enumerate(self.categories, 1):
+        out = ['<header class="page-heading"><h1>内容</h1></header><nav class="category-index" aria-label="内容分类">']
+        for category in self.categories:
             count = sum(a["category_id"] == category["id"] for a in self.articles)
-            out.append(f'<a class="category-card" href="#{category["id"]}"><span class="category-number">{number:02d}</span><span><strong>{esc(category["name"])}</strong><span class="category-description">{esc(category.get("description", ""))}</span></span><span class="category-count">{count:02d} 篇 <span aria-hidden="true">↗</span></span></a>')
+            out.append(f'<a class="category-card" href="#{category["id"]}"><strong>{esc(category["name"])}</strong><span class="category-count">{count} 篇 <span aria-hidden="true">↗</span></span></a>')
         out.append('</nav><div class="shelves">')
-        for number, category in enumerate(self.categories, 1):
-            out.append(f'<section class="shelf" id="{category["id"]}" data-shelf><header class="shelf-heading"><a class="shelf-back" href="#" aria-label="返回全部分类">← 全部分类</a><p class="eyebrow">COLLECTION {number:02d}</p><h2 tabindex="-1">{esc(category["name"])}</h2><p>{esc(category.get("description", ""))}</p></header>')
+        for category in self.categories:
+            out.append(f'<section class="shelf" id="{category["id"]}" data-shelf><header class="shelf-heading"><a class="shelf-back" href="#" aria-label="返回全部分类">← 全部分类</a><h2 tabindex="-1">{esc(category["name"])}</h2></header>')
             if not category["children"]:
-                out.append('<div class="empty-state"><span aria-hidden="true">—</span><h3>留一页空白，等待新的记录。</h3><p>这个分类还没有笔记。</p></div>')
+                out.append('<div class="empty-state"><p>暂无文章</p></div>')
             else:
                 out.append('<div class="book-grid">')
-                for n, child in enumerate(category["children"], 1):
+                for child in category["children"]:
                     members = ordered_articles(self.articles, category, child)
                     key = category["id"] + "--" + child["id"]
-                    out.append(f'<details class="book" id="{key}"><summary class="book-cover"><span class="book-volume">NOTEBOOK / {n:02d}</span><span class="book-name">{esc(child["name"])}</span><span class="book-description">{esc(child.get("description", ""))}</span><span class="book-bottom"><span><b>{len(members):02d}</b> 篇</span><span aria-hidden="true">＋</span></span></summary><div class="book-contents"><div class="book-contents-heading"><h3>{esc(child["name"])}</h3><span>{len(members)} 篇记录</span><button class="book-close" type="button" aria-label="合上{esc(child["name"])}">收起 ×</button></div><ol class="article-list">')
+                    out.append(f'<details class="book" id="{key}"><summary class="book-cover"><span class="book-name">{esc(child["name"])}</span><span class="book-bottom"><span><b>{len(members)}</b> 篇</span><span aria-hidden="true">＋</span></span></summary><div class="book-contents"><div class="book-contents-heading"><h3>{esc(child["name"])}</h3><button class="book-close" type="button" aria-label="收起{esc(child["name"])}">收起 ×</button></div><ol class="article-list">')
                     out.extend(article_row(a) for a in members)
                     if not members:
-                        out.append('<li class="empty-note">暂无笔记。</li>')
+                        out.append('<li class="empty-note">暂无文章</li>')
                     out.append('</ol></div></details>')
                 out.append('</div>')
             out.append('</section>')
@@ -175,19 +183,19 @@ class Site:
 
     def tags(self):
         tags = sorted({tag for a in self.articles for tag in a["tags"]})
-        out = ['<header class="page-heading"><p class="eyebrow">CONNECTED IDEAS</p><h1>标签<span class="heading-dot">.</span></h1><p>从不同的线索，找到相关的笔记。</p></header><nav class="tag-filters" aria-label="按标签筛选"><a href="#" class="tag-filter" aria-current="true">全部</a>']
+        out = ['<header class="page-heading"><h1>标签</h1></header><nav class="tag-filters" aria-label="按标签筛选"><a href="#" class="tag-filter" aria-current="true">全部</a>']
         for tag in tags:
             count = sum(tag in a["tags"] for a in self.articles)
             out.append(f'<a id="{esc(tag)}" href="#{quote(tag)}" class="tag-filter" data-tag="{esc(tag)}">{esc(tag)} <span>{count}</span></a>')
         out.append('</nav><p class="filter-status" role="status" aria-live="polite"></p><ol class="article-list tag-results">')
         out.extend(article_row(a) for a in sorted(self.articles, key=lambda a: (a["date"], a["id"]), reverse=True))
-        out.append('</ol><p class="tag-empty" hidden>没有符合这个标签的笔记。</p>')
+        out.append('</ol><p class="tag-empty" hidden>暂无文章</p>')
         return "\n".join(out)
 
     def friends_page(self):
-        out = ['<header class="page-heading"><p class="ELSEWHERE eyebrow">ELSEWHERE</p><h1>友链<span class="heading-dot">.</span></h1><p>在这里，遇见其他认真记录的人。</p></header><ul class="friend-list">']
-        for number, friend in enumerate(self.friends, 1):
-            out.append(f'<li><a href="{esc(friend["url"])}" target="_blank" rel="noopener noreferrer"><span class="friend-number">{number:02d}</span><span><strong>{esc(friend["name"])}</strong><p>{esc(friend.get("description", ""))}</p><small>{esc(urlsplit(friend["url"]).netloc)}</small></span><span class="friend-arrow" aria-hidden="true">↗</span></a></li>')
+        out = ['<header class="page-heading"><h1>友链</h1></header><ul class="friend-list">']
+        for friend in self.friends:
+            out.append(f'<li><a href="{esc(friend["url"])}" target="_blank" rel="noopener noreferrer"><strong>{esc(friend["name"])}</strong><span class="friend-arrow" aria-hidden="true">↗</span></a></li>')
         return "\n".join(out) + '</ul>'
 
     def prepare(self, markdown, page):
@@ -222,7 +230,6 @@ class Site:
                 text = text.replace(delimiter, "")
             headings = [{"title": h.get_text(" ", strip=True), "anchor": h["id"]} for h in soup.select("h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]")]
             self.rendered[source] = {"text": text, "headings": headings}
-            page.meta["reading_minutes"] = max(1, round(len(text) / 600))
         return content
 
     def write_output(self):

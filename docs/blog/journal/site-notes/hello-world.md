@@ -3,7 +3,6 @@ id: hello-world
 title: Hello World
 date: '2022-10-28'
 updated: '2023-01-07'
-description: 本站最初的建站记录，保留 Hexo 的快速上手说明。
 tags: []
 ---
 

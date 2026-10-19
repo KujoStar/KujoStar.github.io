@@ -3,7 +3,6 @@ id: probability-theory-notes-1
 title: Probability_Theory_Notes_1
 date: '2023-01-11'
 updated: '2023-01-11'
-description: 初等概率论课程笔记，提供完整 PDF 预览与下载。
 tags:
 - 概统课程笔记
 ---

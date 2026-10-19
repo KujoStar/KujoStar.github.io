@@ -27,15 +27,12 @@
 <script type="application/ld+json">{{ {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': a.title, 'description': a.description, 'url': page.canonical_url, 'datePublished': a.date, 'dateModified': a.updated, 'author': {'@type': 'Person', 'name': config.site_author}} | tojson }}</script>
 {% endif %}
 {% endblock %}
-{% block footer %}
-<footer class="site-footer"><div><a href="{{ '/' | url }}" class="footer-wordmark">NAGISA<span>.</span></a><span>{{ config.copyright }}</span></div><div><span class="footer-note">写下，思考，再出发。</span><a href="{{ config.extra.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
-{% endblock %}
+{% block footer %}{% endblock %}
 {% block scripts %}
 <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-title">
-  <div class="dialog-top"><h2 id="search-title">搜索笔记</h2><button type="button" class="dialog-close" data-close-dialog aria-label="关闭搜索">Esc ×</button></div>
-  <form id="search-form" role="search"><label class="sr-only" for="search-query">关键词</label><input type="search" id="search-query" placeholder="标题、标签，或正文中的一句话" autocomplete="off"><button type="submit" aria-label="开始搜索">↗</button></form>
-  <p class="search-status" role="status" aria-live="polite">输入关键词，寻找相关笔记。</p><ol class="search-results"></ol>
-  <div class="search-foot">支持中文与英文 · Esc 关闭 · Ctrl / ⌘ + Enter 打开</div>
+  <div class="dialog-top"><h2 id="search-title">搜索</h2><button type="button" class="dialog-close" data-close-dialog aria-label="关闭搜索">Esc ×</button></div>
+  <form id="search-form" role="search"><label class="sr-only" for="search-query">关键词</label><input type="search" id="search-query" placeholder="关键词" autocomplete="off"><button type="submit" aria-label="开始搜索">↗</button></form>
+  <p class="search-status" role="status" aria-live="polite"></p><ol class="search-results"></ol>
 </dialog>
 {% if page and page.meta.article %}
 <button type="button" class="mobile-toc-button" data-open-toc hidden>本文目录 ☰</button>

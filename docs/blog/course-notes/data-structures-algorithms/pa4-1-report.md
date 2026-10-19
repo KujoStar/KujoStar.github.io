@@ -3,7 +3,6 @@ id: pa4-1-report
 title: PA4-1 Report
 date: '2023-01-07'
 updated: '2023-01-07'
-description: 用字典树处理限定窗口内的 64 位二进制串异或最大值查询。
 tags:
 - DSA解题报告
 ---

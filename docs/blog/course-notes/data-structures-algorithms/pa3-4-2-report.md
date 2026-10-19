@@ -3,7 +3,6 @@ id: pa3-4-2-report
 title: PA3-4-2 Report
 date: '2022-10-28'
 updated: '2023-01-07'
-description: 使用动态开点线段树处理大区间的更新与求和。
 tags:
 - DSA解题报告
 ---
