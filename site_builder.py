@@ -152,10 +152,15 @@ class Site:
             for friend in self.friends:
                 if urlsplit(friend["url"]).scheme != "https" or not friend.get("name"):
                     raise ValueError("Friends need a name and HTTPS URL")
-                if not isinstance(friend.get("description", ""), str):
-                    raise ValueError("Friend descriptions must be text")
-                if friend.get("avatar") and urlsplit(friend["avatar"]).scheme != "https":
+                for field in ("description", "avatar"):
+                    value = friend.get(field)
+                    if value is not None and not isinstance(value, str):
+                        raise ValueError(f"Friend {field} must be text")
+                    friend[field] = (value or "").strip()
+                if friend["avatar"] and urlsplit(friend["avatar"]).scheme != "https":
                     raise ValueError("Friend avatars need an HTTPS URL")
+                friend["avatar"] = friend["avatar"] or "/assets/default-avatar.jpg"
+                friend["description"] = friend["description"] or "这个人不懒，但是也什么都没留下。"
             self.redirects = json.loads((self.root / "data/redirects.json").read_text(encoding="utf-8"))
             giscus = config.get("extra", {}).get("giscus", {})
             if giscus.get("enabled") and any(not giscus.get(key) for key in ("repo", "repo_id", "category", "category_id")):
@@ -216,8 +221,8 @@ class Site:
     def friends_page(self):
         out = ['<header class="page-heading"><h1>友链</h1></header><ul class="friend-list">']
         for friend in self.friends:
-            avatar = f'<img class="friend-avatar" src="{esc(friend["avatar"])}" alt="" width="64" height="64" loading="lazy" decoding="async" referrerpolicy="no-referrer">' if friend.get("avatar") else ''
-            description = f'<span class="friend-description">{esc(friend["description"])}</span>' if friend.get("description") else ''
+            avatar = f'<img class="friend-avatar" src="{esc(friend["avatar"])}" alt="" width="64" height="64" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
+            description = f'<span class="friend-description">{esc(friend["description"])}</span>'
             out.append(f'<li><a href="{esc(friend["url"])}" target="_blank" rel="noopener noreferrer">{avatar}<span class="friend-info"><strong>{esc(friend["name"])}</strong>{description}</span><span class="friend-arrow" aria-hidden="true">↗</span></a></li>')
         return "\n".join(out) + '</ul>'
 

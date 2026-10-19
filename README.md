@@ -71,6 +71,8 @@ tags: [助教, 程序设计]
 
 友链在 `data/friends.yml` 中维护：`name` 是标题，`description` 是个人描述，
 `avatar` 是头像地址，`url` 是博客地址。头像和博客地址使用 HTTPS。
+`avatar` 和 `description` 可以省略或留空。未填头像时使用 [默认头像](https://kujostar.github.io/assets/default-avatar.jpg)，
+未填描述时显示“这个人不懒，但是也什么都没留下。”。
 
 ## 评论
 

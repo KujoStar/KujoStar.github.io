@@ -138,7 +138,7 @@ a { color: var(--accent); }
 .friend-list .friend-avatar { display: block; flex: 0 0 auto; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: var(--paper-deep); }
 .friend-info { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .friend-list strong { display: block; font: 700 22px/1.4 var(--sans); color: var(--ink); }
-.friend-description { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.friend-description { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; line-height: 1.65; text-wrap: balance; }
 .friend-arrow { flex: 0 0 auto; color: var(--muted); font-size: 20px; }
 [data-page="article"] .md-main__inner { padding-top: 45px; padding-bottom: 70px; gap: 50px; }
 [data-page="article"] .md-content { flex: 1; }
