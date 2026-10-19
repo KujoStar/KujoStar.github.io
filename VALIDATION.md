@@ -22,10 +22,16 @@
 - 768 像素平板：深色主题无横向溢出；PDF 预览实际显示中文、公式，29 页文件可翻页。
 - 明暗主题跨页保存，站内导航与文章返回子类目录可用。
 
-## 上线前剩余事项
+## 正式部署与线上验收
 
-尚未部署到线上。当前浏览器未登录 GitHub，无法访问仓库 Pages 管理页。公开仓库信息确认 Pages 已存在，Discussions 尚未开启。
+2026-10-19 已将源码合入并推送到 `main`，正式域名为 <https://kujostar.github.io/>。Pages 发布来源已切换为 GitHub Actions，发布提交为 `3e2ea6c6ae9341fd5fece677a39bfe129771d765`。
 
-需要使用仓库所有者账号将 Pages 发布来源切换到 GitHub Actions、合入并推送源码；如启用评论，需开启 Discussions、授权 giscus 并填写公开的 repository/category ID。具体步骤见 README。评论的模板逻辑已测试，但尚未进行真实 GitHub 评论提交测试。
+- [首次发布工作流](https://github.com/KujoStar/KujoStar.github.io/actions/runs/39247334150)的 validate 和 deploy 任务全部成功；依赖检查、Python/JavaScript 测试、严格构建、产物检查及源码不变检查均通过。
+- 正式域名展示新版首页；搜索“平衡因子”返回 Lab3 Report，首页搜索按钮与 Enter 提交均可用。
+- 34 个旧入口的目录地址和 `index.html` 地址均返回可用跳转页，canonical 与映射配置一致。浏览器实测旧 Hello World 地址跳转到新文章并保留 `#Quick-Start` 标题锚点。
+- 在线下载的两个 PDF SHA-256 与原文件一致；正式 sitemap 可访问且使用正确域名。
+- Discussions 已开启，仓库所有者已为本站仓库安装 giscus。正式文章评论区成功显示“0 条评论”和 GitHub 登录入口；组件使用本站仓库、Announcements 分类及 `nagisa:hello-world` 稳定标识。未代替用户发布测试评论，也未验证真实评论写入。
+
+首次评论时，访客需要在评论区通过 GitHub 登录；这是个人评论身份授权，与已经完成的仓库应用安装是两个步骤。维护与恢复说明见 README。
 
 MathJax 与 PDF.js 使用按需加载的 CDN，离线时分别保留 TeX 文本和 PDF 原文件下载入口。减少动画规则已实现；未改变用户系统设置来模拟减少动画模式。
