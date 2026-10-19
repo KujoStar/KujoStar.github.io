@@ -96,6 +96,7 @@ node --test tests/*.test.js
 迁移清单在 `data/migration-manifest.json`，旧网址映射在 `data/redirects.json`。
 `scripts/check_site.py` 会核对旧文正文、代码、公式、附件及链接。
 修订旧文后，相应更新迁移校验。
+删除迁移文章时，将清单中对应条目的 `removed` 设为 `true`，并调整旧网址跳转。
 
 恢复旧站时，可从原始提交恢复文件并将 Pages 发布来源改回分支部署。
 迁移和验收记录见 [MIGRATION.md](MIGRATION.md) 与 [VALIDATION.md](VALIDATION.md)。

@@ -121,8 +121,10 @@ a { color: var(--accent); }
 .article-row a:hover .article-row-title { color: var(--accent); }
 .article-row time { color: var(--muted); white-space: nowrap; font: 11px var(--mono); }
 .row-arrow { font-size: 18px; }
-.empty-state { padding: 35px 0; }
-.empty-state p, .empty-note { color: var(--muted); font-size: 14px; }
+.empty-state { display: grid; place-items: center; min-height: 36vh; padding: 45px 20px; text-align: center; }
+.md-typeset .empty-state p { width: 100%; margin: 0; color: var(--muted); font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", var(--sans); font-size: clamp(22px,2.4vw,30px); font-weight: 600; line-height: 1.8; text-wrap: balance; }
+.empty-state p > span { display: inline-block; }
+.empty-note { color: var(--muted); font-size: 14px; }
 .tag-filters { display: flex; flex-wrap: wrap; gap: 12px; margin: 35px 0 32px; }
 .tag-filter { border: 1px solid var(--line); padding: 7px 15px; border-radius: 2px; font-size: 13px; color: var(--ink) !important; }
 .tag-filter span { margin-left: 12px; font: 11px var(--mono); color: var(--muted); }

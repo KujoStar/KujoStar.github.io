@@ -3,6 +3,7 @@
   "articles": [
     {
       "id": "hello-world",
+      "removed": true,
       "title": "Hello World",
       "source": "legacy/2022/10/28/hello-world/index.html",
       "destination": "docs/blog/journal/site-notes/hello-world.md",
@@ -693,6 +694,7 @@
     },
     {
       "id": "2023-2-20",
+      "removed": true,
       "title": "2023-2-20",
       "source": "legacy/2023/02/20/2023-2-20/index.html",
       "destination": "docs/blog/journal/campus-life/2023-2-20.md",

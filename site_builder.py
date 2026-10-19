@@ -181,8 +181,8 @@ class Site:
         out.append('</nav><div class="shelves">')
         for category in self.categories:
             out.append(f'<section class="shelf" id="{category["id"]}" data-shelf><header class="shelf-heading"><a class="shelf-back" href="#" aria-label="返回全部分类">← 全部分类</a><h2 tabindex="-1">{esc(category["name"])}</h2></header>')
-            if not category["children"]:
-                out.append('<div class="empty-state"><p>暂无文章</p></div>')
+            if not any(a["category_id"] == category["id"] for a in self.articles):
+                out.append('<div class="empty-state"><p><span>这个人很懒，</span><span>什么也没有留下......</span></p></div>')
             else:
                 out.append('<div class="book-grid">')
                 for child in category["children"]:
@@ -270,6 +270,6 @@ class Site:
                 raise PluginError(f"Redirect would overwrite an existing page: {old}")
             target.parent.mkdir(parents=True, exist_ok=True)
             encoded = quote(new, safe="/#%?=&")
-            target.write_text(f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><link rel="canonical" href="{esc(base + encoded)}"><meta http-equiv="refresh" content="0;url={esc(encoded)}"><title>笔记已迁移 · NAGISA</title></head><body><p>这篇笔记已有新的地址：<a href="{esc(encoded)}">前往新页面</a></p><script>const destination = new URL({json.dumps(encoded)}, location.origin); destination.search = location.search; if (location.hash) destination.hash = location.hash; location.replace(destination.href);</script></body></html>', encoding="utf-8")
+            target.write_text(f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><link rel="canonical" href="{esc(base + encoded)}"><meta http-equiv="refresh" content="0;url={esc(encoded)}"><title>页面跳转 · NAGISA</title></head><body><p><a href="{esc(encoded)}">前往页面</a></p><script>const destination = new URL({json.dumps(encoded)}, location.origin); destination.search = location.search; if (location.hash && !destination.hash) destination.hash = location.hash; location.replace(destination.href);</script></body></html>', encoding="utf-8")
         (output / ".nojekyll").touch()
         (output / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", encoding="utf-8")

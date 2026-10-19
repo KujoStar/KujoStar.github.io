@@ -21,7 +21,7 @@ class CatalogTests(unittest.TestCase):
         categories = read_catalog(ROOT / "data/site-catalog.yml")
         articles = build_articles(ROOT, categories)
         self.assertEqual([c["name"] for c in categories], ["课程笔记", "助教工作", "论文阅读", "科研项目", "随笔日记"])
-        self.assertGreaterEqual(len(articles), 16)
+        self.assertGreaterEqual(len(articles), 14)
         members = ordered_articles(articles, categories[0], categories[0]["children"][1])
         self.assertEqual([a["id"] for a in members[:2]], ["probability-theory-notes-1", "probability-theory-notes-2"])
 
@@ -76,6 +76,9 @@ class MigrationTests(unittest.TestCase):
         self.assertEqual(len(manifest["articles"]), 16)
         for article in manifest["articles"]:
             with self.subTest(article=article["id"]):
+                if article.get("removed"):
+                    self.assertFalse((ROOT / article["destination"]).exists())
+                    continue
                 _, old = legacy_body(ROOT / article["source"])
                 meta, body = read_document(ROOT / article["destination"])
                 rendered = markdown.markdown(body, extensions=["attr_list", "tables", "sane_lists", "pymdownx.superfences", "pymdownx.highlight", "pymdownx.arithmatex"], extension_configs={"pymdownx.highlight": {"stripnl": False}, "pymdownx.arithmatex": {"generic": True}})

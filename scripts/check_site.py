@@ -41,6 +41,10 @@ def migration_errors(root=ROOT):
         target = root / "site" / article["new_url"].strip("/") / "index.html"
         if hashlib.sha256(source.read_bytes()).hexdigest() != article["source_sha256"]:
             errors.append(f"Legacy snapshot changed: {source}")
+        if article.get("removed"):
+            if (root / article["destination"]).exists() or (target.is_file() and soup(target).select_one("#article-body")):
+                errors.append(f"Removed article is still published: {article['id']}")
+            continue
         if not target.is_file():
             errors.append(f"Missing migrated page: {target}")
             continue
@@ -116,6 +120,10 @@ def check_site(root=ROOT):
                     errors.append(f"Missing anchor: {relative} -> {ref}")
     light = json.loads((site / "assets/catalog.json").read_text(encoding="utf-8"))
     full = json.loads((site / "assets/search.json").read_text(encoding="utf-8"))
+    manifest = json.loads((root / "data/migration-manifest.json").read_text(encoding="utf-8"))
+    removed_ids = {a["id"] for a in manifest["articles"] if a.get("removed")}
+    if removed_ids & {i["id"] for index in (light, full) for i in index["items"]}:
+        errors.append("Removed articles remain in the search index")
     if light["version"] != full["version"] or {i["id"] for i in light["items"]} != {i["id"] for i in full["items"]}:
         errors.append("Search index versions/IDs disagree")
     for item in full["items"]:

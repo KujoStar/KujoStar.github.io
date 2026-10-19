@@ -1,5 +1,6 @@
 {
-  "/2022/10/28/hello-world/": "/blog/journal/site-notes/hello-world/",
+  "/2022/10/28/hello-world/": "/blog/#journal",
+  "/blog/journal/site-notes/hello-world/": "/blog/#journal",
   "/2022/10/28/PA3-4-2-Report/": "/blog/course-notes/data-structures-algorithms/pa3-4-2-report/",
   "/2023/01/07/PA4-1-Report/": "/blog/course-notes/data-structures-algorithms/pa4-1-report/",
   "/2023/01/07/PA4-2-Report/": "/blog/course-notes/data-structures-algorithms/pa4-2-report/",
@@ -14,7 +15,8 @@
   "/2023/01/26/PA2-2-Report/": "/blog/course-notes/data-structures-algorithms/pa2-2-report/",
   "/2023/01/26/PA3-2-Report/": "/blog/course-notes/data-structures-algorithms/pa3-2-report/",
   "/2023/01/26/PA3-6-Report/": "/blog/course-notes/data-structures-algorithms/pa3-6-report/",
-  "/2023/02/20/2023-2-20/": "/blog/journal/campus-life/2023-2-20/",
+  "/2023/02/20/2023-2-20/": "/blog/#journal",
+  "/blog/journal/campus-life/2023-2-20/": "/blog/#journal",
   "/archives/": "/blog/",
   "/archives/2022/": "/blog/",
   "/archives/2022/10/": "/blog/",
@@ -30,7 +32,7 @@
   "/page/2/": "/blog/",
   "/tags/DSA解题报告/": "/tags/#DSA解题报告",
   "/tags/DSA解题报告/page/2/": "/tags/#DSA解题报告",
-  "/tags/杂谈和日记/": "/tags/#杂谈和日记",
+  "/tags/杂谈和日记/": "/blog/#journal",
   "/tags/概统课程笔记/": "/tags/#概统课程笔记",
   "/categories/": "/blog/"
 }
