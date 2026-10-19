@@ -1,0 +1,26 @@
+<div id="main-content" tabindex="-1">
+{% if page and page.meta.article %}
+{% set a = page.meta.article %}
+{% set book_url = '/blog/#' ~ a.category_id ~ '--' ~ a.subcategory_id %}
+<header class="article-heading">
+  <nav class="article-breadcrumb" aria-label="文章分类"><a href="/blog/">内容</a><span>/</span><a href="/blog/#{{ a.category_id }}">{{ a.category }}</a><span>/</span><a href="{{ book_url }}">{{ a.subcategory }}</a></nav>
+  <p class="eyebrow">NOTES / {{ a.date[:4] }}</p><h1>{{ a.title }}</h1>
+  <div class="article-meta"><span>发布于 <time datetime="{{ a.date }}">{{ a.date }}</time></span>{% if a.updated != a.date %}<span>更新于 <time datetime="{{ a.updated }}">{{ a.updated }}</time></span>{% endif %}<span>约 {{ page.meta.reading_minutes }} 分钟</span></div>
+</header>
+<div class="article-body" id="article-body">{{ page.content }}</div>
+<footer class="article-footer">
+  <div class="article-tags"><span>归档</span><a href="{{ book_url }}">{{ a.subcategory }}</a>{% for tag in a.tags %}<a href="/tags/#{{ tag | urlencode }}">#{{ tag }}</a>{% endfor %}</div>
+  {% set neighbors = page.meta.neighbors %}
+  <nav class="article-pager" aria-label="{{ '系列章节' if neighbors.series else '同类笔记' }}">
+    {% if neighbors.previous %}<a href="{{ neighbors.previous.url }}" rel="prev"><small>← {{ '上一章' if neighbors.series else '上一篇' }}</small><strong>{{ neighbors.previous.title }}</strong></a>{% else %}<span></span>{% endif %}
+    {% if neighbors.next %}<a href="{{ neighbors.next.url }}" rel="next"><small>{{ '下一章' if neighbors.series else '下一篇' }} →</small><strong>{{ neighbors.next.title }}</strong></a>{% endif %}
+  </nav><a class="back-to-book" href="{{ book_url }}">返回「{{ a.subcategory }}」目录 ↗</a>
+</footer>
+{% set g = config.extra.giscus %}
+{% if a.comments and g.enabled %}
+<section class="comments" aria-labelledby="comments-title"><h2 id="comments-title">评论</h2><div data-giscus-config="{{ {'repo': g.repo, 'repo_id': g.repo_id, 'category': g.category, 'category_id': g.category_id, 'term': 'nagisa:' ~ a.id} | tojson | forceescape }}"></div></section>
+{% endif %}
+{% else %}
+{{ page.content }}
+{% endif %}
+</div>

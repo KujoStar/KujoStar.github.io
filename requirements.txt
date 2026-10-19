@@ -1,0 +1,7 @@
+mkdocs==1.6.1
+mkdocs-material==9.7.6
+Markdown==3.10.2
+pymdown-extensions==11.0.1
+PyYAML==6.0.3
+beautifulsoup4==4.14.3
+markdownify==1.2.0

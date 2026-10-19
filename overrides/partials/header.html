@@ -1,0 +1,11 @@
+<header class="site-header" data-md-component="header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="brand" href="{{ '/' | url }}" aria-label="NAGISA's Blog 首页"><span class="brand-icon" aria-hidden="true">N</span><span>NAGISA<span class="brand-dot">.</span></span></a>
+    <div class="nav-links">
+      {% for label, target, key in [('首页', '', 'home'), ('内容', 'blog/', 'catalog'), ('标签', 'tags/', 'tags'), ('友链', 'friends/', 'friends')] %}
+      <a href="{{ ('/' ~ target) | url }}"{% if page and ((target == '' and page.is_homepage) or (target and page.url.startswith(target))) %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+    </div>
+    <div class="nav-actions"><button type="button" class="search-toggle" data-open-search aria-label="打开搜索" title="搜索 · Ctrl+Enter"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 13a8.7 8.7 0 0 1-9.5-9.5A8.7 8.7 0 1 0 20.5 13Z"/></svg></button></div>
+  </nav>
+</header>
