@@ -53,6 +53,8 @@ tags: [助教, 程序设计]
 | 内容 | 文件 |
 |---|---|
 | 首页候选标题 | `data/home-quotes.yml` |
+| 导航头像 | `docs/assets/avatar.jpg` |
+| 浏览器图标 | `docs/assets/favicon.png`、`docs/favicon.ico` |
 | 分类和顺序 | `data/site-catalog.yml` |
 | 友链名称和网址 | `data/friends.yml` |
 | 站名、域名、评论配置 | `mkdocs.yml` |

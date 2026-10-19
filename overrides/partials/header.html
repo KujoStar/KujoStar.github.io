@@ -1,6 +1,6 @@
 <header class="site-header" data-md-component="header">
   <nav class="site-nav" aria-label="主导航">
-    <a class="brand" href="{{ '/' | url }}" aria-label="NAGISA's Blog 首页"><span class="brand-icon" aria-hidden="true">N</span><span>NAGISA<span class="brand-dot">.</span></span></a>
+    <a class="brand" href="{{ '/' | url }}" aria-label="NAGISA's Blog 首页"><img class="brand-avatar" src="{{ 'assets/avatar.jpg' | url }}" alt="" width="36" height="36"><span>NAGISA<span class="brand-dot">.</span></span></a>
     <div class="nav-links">
       {% for label, target, key in [('首页', '', 'home'), ('内容', 'blog/', 'catalog'), ('标签', 'tags/', 'tags'), ('友链', 'friends/', 'friends')] %}
       <a href="{{ ('/' ~ target) | url }}"{% if page and ((target == '' and page.is_homepage) or (target and page.url.startswith(target))) %} aria-current="page"{% endif %}>{{ label }}</a>
