@@ -147,7 +147,9 @@ class Site:
 
     def home(self):
         return '''<section class="home-hero">
-<h1>在学习与生活之间，<br>留下一些<span>记录。</span></h1>
+<h1 lang="en"><span class="quote-line">Day before yesterday I saw a rabbit,</span>
+<span class="quote-line">and yesterday a deer,</span>
+<span class="quote-line quote-ending">and today, you.</span></h1>
 <form class="home-search" role="search" data-home-search>
   <label class="sr-only" for="home-query">搜索</label><span aria-hidden="true">⌕</span>
   <input id="home-query" name="q" type="search" placeholder="搜索" autocomplete="off">

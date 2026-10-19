@@ -27,7 +27,9 @@
 <script type="application/ld+json">{{ {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': a.title, 'description': a.description, 'url': page.canonical_url, 'datePublished': a.date, 'dateModified': a.updated, 'author': {'@type': 'Person', 'name': config.site_author}} | tojson }}</script>
 {% endif %}
 {% endblock %}
-{% block footer %}{% endblock %}
+{% block footer %}
+<footer class="site-footer"><a href="{{ config.extra.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a></footer>
+{% endblock %}
 {% block scripts %}
 <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-title">
   <div class="dialog-top"><h2 id="search-title">搜索</h2><button type="button" class="dialog-close" data-close-dialog aria-label="关闭搜索">Esc ×</button></div>

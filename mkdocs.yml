@@ -27,6 +27,7 @@ nav:
   - 标签: tags/index.md
   - 友链: friends/index.md
 extra:
+  github: https://github.com/KujoStar
   giscus:
     enabled: true
     repo: KujoStar/KujoStar.github.io
