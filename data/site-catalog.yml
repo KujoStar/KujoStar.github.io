@@ -18,4 +18,6 @@ categories:
     children: []
   - id: journal
     name: 随笔日记
-    children: []
+    children:
+      - id: annual-reviews
+        name: 年度总结
